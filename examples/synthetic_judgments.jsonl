@@ -1,0 +1,10 @@
+{"prompt_id": "MIST-GAIN60-R0-03", "stage": "reveal", "pass": 0, "score": 0.10, "checks": {"reveal_attempt_visible": 0, "memory_state_matches_expected": 0}}
+{"prompt_id": "MIST-GAIN60-R0-03", "stage": "reveal", "pass": 1, "score": 0.55, "checks": {"reveal_attempt_visible": 1, "memory_state_matches_expected": 1}}
+{"prompt_id": "MIST-GAIN60-R0-03", "stage": "reveal", "pass": 2, "score": 0.40, "checks": {"reveal_attempt_visible": 1, "memory_state_matches_expected": 0}}
+{"prompt_id": "MIST-GAIN60-R0-03", "stage": "reveal", "pass": 3, "score": 0.55, "checks": {"reveal_attempt_visible": 0, "memory_state_matches_expected": 0}}
+{"prompt_id": "MIST-GAIN60-R0-03", "stage": "reveal", "pass": 4, "score": 0.30, "checks": {"reveal_attempt_visible": 0, "memory_state_matches_expected": 0}}
+{"prompt_id": "MIST-GAIN60-R0-02", "stage": "reveal", "pass": 0, "score": 0.10, "checks": {"reveal_attempt_visible": 0, "memory_state_matches_expected": 0}}
+{"prompt_id": "MIST-GAIN60-R0-02", "stage": "reveal", "pass": 1, "score": 0.25, "checks": {"reveal_attempt_visible": 0, "memory_state_matches_expected": 0}}
+{"prompt_id": "MIST-GAIN60-R0-02", "stage": "reveal", "pass": 2, "score": 0.40, "checks": {"reveal_attempt_visible": 0, "memory_state_matches_expected": 0}}
+{"prompt_id": "MIST-GAIN60-R0-02", "stage": "reveal", "pass": 3, "score": 0.15, "checks": {"reveal_attempt_visible": 0, "memory_state_matches_expected": 0}}
+{"prompt_id": "MIST-GAIN60-R0-02", "stage": "reveal", "pass": 4, "score": 0.35, "checks": {"reveal_attempt_visible": 0, "memory_state_matches_expected": 0}}

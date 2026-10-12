@@ -1,0 +1,33 @@
+{
+  "generator": "Wan2.2-TI2V-5B",
+  "official_generator": "Wan2.2-T2V-A14B",
+  "judge": "Qwen3.5-122B-A10B",
+  "blind_selector": "Qwen3-VL-8B-Instruct",
+  "shots": 3,
+  "shot_seconds": 5,
+  "k": 5,
+  "seed_class": 9042,
+  "seed_class_note": "Named in the paper. The original sampler was deleted and is not reimplemented.",
+  "e6_seed": "1000 + k * 137",
+  "e6_seeds": [
+    1000,
+    1137,
+    1274,
+    1411,
+    1548
+  ],
+  "reveal_positions": [
+    0.9,
+    0.93,
+    0.95,
+    0.97,
+    0.99,
+    0.995
+  ],
+  "wan_steps": 50,
+  "wan_size": "1280*704",
+  "official_seconds": 10,
+  "official_frames": 161,
+  "bootstrap_resamples": 4000,
+  "bootstrap_seed": 0
+}
