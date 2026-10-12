@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MIST — selected comparisons</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,480;6..72,560&family=Outfit:wght@380;520&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --paper: #f6f3ec;
+      --ink: #1c2430;
+      --muted: #5e6b66;
+      --line: #e3dbd0;
+      --teal: #0f6e56;
+      --brown: #8b5e4b;
+      --card: #fffcf8;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: Outfit, "Segoe UI", sans-serif;
+      font-weight: 380;
+      line-height: 1.5;
+    }
+    a { color: var(--teal); }
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 16px;
+      padding: 16px 28px;
+      background: rgba(246, 243, 236, 0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--line);
+    }
+    .mark { font-family: Newsreader, Georgia, serif; font-size: 22px; letter-spacing: 0.04em; }
+    .mark span { color: var(--teal); }
+    nav { font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase; }
+    nav a { color: var(--muted); text-decoration: none; margin-left: 16px; }
+    main { width: min(1040px, calc(100% - 36px)); margin: 0 auto; padding: 36px 0 72px; }
+    h1 {
+      font-family: Newsreader, Georgia, serif;
+      font-weight: 480;
+      font-size: clamp(36px, 5vw, 58px);
+      line-height: 1.02;
+      letter-spacing: -0.02em;
+      margin: 8px 0 12px;
+    }
+    .lede { max-width: 640px; color: var(--muted); font-size: 17px; margin: 0 0 28px; }
+    figure { margin: 0 0 42px; }
+    figure img { width: 100%; display: block; border-radius: 18px; border: 1px solid var(--line); background: white; }
+    figcaption { margin-top: 8px; color: var(--muted); font-size: 13px; }
+    h2 {
+      font-family: Newsreader, Georgia, serif;
+      font-weight: 560;
+      font-size: 28px;
+      margin: 0 0 8px;
+    }
+    .section-note { color: var(--muted); max-width: 680px; margin: 0 0 22px; }
+    .demo {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 18px 18px 16px;
+      margin: 0 0 18px;
+    }
+    .demo-head { display: flex; justify-content: space-between; gap: 18px; align-items: baseline; margin-bottom: 12px; }
+    .kicker { color: var(--teal); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; }
+    .demo h3 { font-family: Newsreader, Georgia, serif; font-size: 24px; font-weight: 560; margin: 2px 0; }
+    .demo p { margin: 0; color: var(--muted); max-width: 62ch; }
+    .labels {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      margin-bottom: 6px;
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+    .labels span:first-child { color: var(--brown); }
+    .labels span:last-child { color: var(--teal); text-align: left; padding-left: 8px; }
+    .demo img { width: 100%; display: block; border-radius: 12px; background: #fff; }
+    footer { color: var(--muted); font-size: 13px; margin-top: 28px; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="mark">MIST <span>demo</span></div>
+    <nav>
+      <a href="#demos">Comparisons</a>
+      <a href="https://github.com/HKU-MMLab/MIST">Code</a>
+    </nav>
+  </header>
+  <main>
+    <p class="kicker">Execution before memory</p>
+    <h1>The last frame is the test.</h1>
+    <p class="lede">Three selected clips. Left is the raw take. Right is the revised instruction. These are not the full 43, and keeping the better clip is an oracle.</p>
+    <figure>
+      <img src="media/teaser.png" alt="Paper overview of MIST, WRBench, MBench-T, and M3-Agent.">
+      <figcaption>Overview from the current paper draft.</figcaption>
+    </figure>
+
+    <h2 id="demos">Selected comparisons</h2>
+    <p class="section-note">Filtered to the pairs whose last frame makes the missing move obvious. Raw stays on the left so a worse revision would still be visible.</p>
+
+    <article class="demo">
+      <div class="demo-head">
+        <div>
+          <div class="kicker">R0-03 · worked case</div>
+          <h3>Orange marble, tin, purple disk</h3>
+        </div>
+      </div>
+      <p>The raw take opens the tin onto another object. The revision keeps the tin, the disk, and the order, and puts the orange marble inside.</p>
+      <div class="labels"><span>Raw</span><span>Revised</span></div>
+      <img src="media/r003.gif" alt="R0-03 raw on the left opens onto the wrong object. Revised on the right shows the orange marble in the tin.">
+    </article>
+
+    <article class="demo">
+      <div class="demo-head">
+        <div>
+          <div class="kicker">R0-10 · closed lid</div>
+          <h3>Gray box stays shut, then opens</h3>
+        </div>
+      </div>
+      <p>The raw take leaves the lid closed. The revision opens it onto the blue disk and the yellow cube. The red marble stays outside.</p>
+      <div class="labels"><span>Raw</span><span>Revised</span></div>
+      <img src="media/r010.gif" alt="R0-10 raw leaves the gray box closed. Revised opens it onto a blue disk and a yellow cube.">
+    </article>
+
+    <article class="demo">
+      <div class="demo-head">
+        <div>
+          <div class="kicker">S04 · empty box</div>
+          <h3>An open box with nothing in it</h3>
+        </div>
+      </div>
+      <p>The raw take lifts the lid onto an empty box. The revision shows the token that was supposed to be inside.</p>
+      <div class="labels"><span>Raw</span><span>Revised</span></div>
+      <img src="media/s04.gif" alt="S04 raw opens an empty black box. Revised shows a green token inside.">
+    </article>
+
+    <footer>
+      Selected from the talk clips. Not a scorer-free result, and not the official WRBench or MBench-T totals.
+    </footer>
+  </main>
+</body>
+</html>
