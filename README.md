@@ -1,4 +1,6 @@
-![MIST. Execution before memory. Make the Missing Move.](docs/images/logo.png)
+<p align="center">
+  <img width="520" alt="MIST. Execution before memory. Make the Missing Move." src="https://github.com/HKU-MMLab/MIST/releases/download/readme-assets/logo.png">
+</p>
 
 <h1 align="center">Execution Before Memory:<br>Diagnosing Memory Failures in Video World Models</h1>
 
@@ -21,7 +23,9 @@
   <a href="docs/protocol.md"><img src="https://img.shields.io/badge/Protocol-cells-B08D57?style=for-the-badge" alt="Protocol"></a>
 </p>
 
-![MIST uses three 5-second shots. M3-Agent reads the last frame, diagnoses the visible failure, rewrites that move, and keeps the oracle score.](docs/images/loop.png)
+<p align="center">
+  <img width="920" alt="MIST uses three 5-second shots. M3-Agent reads the last frame, diagnoses the visible failure, rewrites that move, and keeps the oracle score." src="https://github.com/HKU-MMLab/MIST/releases/download/readme-assets/loop.png">
+</p>
 
 <p align="center">
   <a href="#overview">Overview</a> &bull;
@@ -48,7 +52,9 @@ The numbers in [Key Findings](#key-findings) are the cells reported in the paper
 
 ## Key Findings
 
-![Three reported cells: 41 of 43 baseline clips never open; best-of-five reveal is 0.763 with the answer in the prompt and 0.174 when it is withheld; official WRBench and MBench-T move for different reasons.](docs/images/findings.png)
+<p align="center">
+  <img width="920" alt="Three reported cells: 41 of 43 baseline clips never open; best-of-five reveal is 0.763 with the answer in the prompt and 0.174 when it is withheld; official WRBench and MBench-T move for different reasons." src="https://github.com/HKU-MMLab/MIST/releases/download/readme-assets/findings.png">
+</p>
 
 ### Finding 1: The baseline fails before memory is tested
 
