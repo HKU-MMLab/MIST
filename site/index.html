@@ -7,11 +7,13 @@
   <style>
     :root {
       --ink: #1c2430;
-      --muted: #5c6560;
+      --muted: #4e5854;
       --teal: #0f6e56;
       --gold: #b08d57;
+      --brown: #8b5e4b;
+      --line: #e4dcd0;
       --paper: #f7f4ee;
-      --line: #e6dfd4;
+      --best: #e8f3ef;
     }
     * { box-sizing: border-box; }
     body {
@@ -22,47 +24,46 @@
       font-size: 18px;
       line-height: 1.55;
     }
-    a { color: inherit; }
+    a { color: var(--teal); }
     .header-wrapper {
-      background: linear-gradient(-210deg, #0c4f40 0%, #1f8a6d 42%, #e7c9a0 78%, #f7f4ee 100%);
+      background: linear-gradient(-210deg, #0c4f40 0%, #1c7d63 46%, #e7c9a0 82%, #f7f4ee 100%);
       color: #fff8ea;
     }
-    .header-container {
-      max-width: 1080px;
+    .header {
+      max-width: 980px;
       margin: 0 auto;
-      padding: 48px 24px 28px;
+      padding: 52px 28px 36px;
     }
-    .header-container h1 {
+    .header h1 {
       margin: 0;
-      font-size: clamp(48px, 7vw, 76px);
+      font-size: clamp(52px, 8vw, 84px);
       font-weight: 500;
       font-style: italic;
       letter-spacing: -0.03em;
-      line-height: 0.95;
+      line-height: 0.92;
       color: #fff6df;
     }
-    .header-container h2 {
-      margin: 8px 0 22px;
-      font-size: clamp(22px, 3vw, 32px);
+    .header h2 {
+      margin: 10px 0 26px;
+      font-size: clamp(22px, 3vw, 34px);
       font-weight: 500;
       color: #ffe7bf;
     }
-    .claims { display: flex; flex-direction: column; gap: 12px; max-width: 820px; }
-    .claim { display: flex; gap: 12px; align-items: flex-start; }
+    .claims { display: flex; flex-direction: column; gap: 14px; max-width: 760px; }
+    .claim { display: grid; grid-template-columns: 28px 1fr; gap: 12px; align-items: start; }
     .claim b { color: #ffe7bf; }
-    .dot {
-      flex: 0 0 auto;
-      width: 26px;
-      height: 26px;
-      margin-top: 3px;
+    .num {
+      width: 28px;
+      height: 28px;
+      margin-top: 2px;
       border-radius: 8px;
       background: #fff0ce;
-      color: #0f6e56;
+      color: var(--teal);
       display: grid;
       place-items: center;
-      font-size: 14px;
+      font-size: 15px;
     }
-    .buttons { margin: 22px 0 8px; }
+    .buttons { margin-top: 26px; }
     .buttons a {
       display: inline-block;
       margin: 0 10px 10px 0;
@@ -74,104 +75,184 @@
       border: 2px solid rgba(176, 141, 87, 0.55);
     }
     .buttons a:hover { background: #ffe3a3; }
-    .teaser { margin: 18px auto 0; }
-    .teaser img {
-      width: 100%;
-      display: block;
-      border-radius: 12px;
-      background: white;
-    }
-    .byline { text-align: center; padding: 28px 16px 8px; }
-    .byline a { text-decoration: none; border-bottom: 1px solid transparent; }
-    .byline a:hover { border-bottom-color: var(--teal); }
-    .affiliations { color: #666; font-size: 16px; margin-top: 8px; }
-    article { max-width: 980px; margin: 0 auto; padding: 12px 22px 72px; }
-    article h2 {
-      font-size: 34px;
+    .sheet { max-width: 980px; margin: 0 auto; padding: 8px 28px 80px; }
+    .byline { text-align: center; padding: 28px 12px 4px; }
+    .byline a { color: inherit; text-decoration: none; }
+    .byline a:hover { color: var(--teal); }
+    .aff { color: #666; font-size: 16px; margin-top: 6px; }
+    h3.sec {
+      font-size: 32px;
       font-weight: 500;
-      margin: 36px 0 12px;
+      margin: 42px 0 12px;
     }
-    .caption { color: #555; font-size: 16px; margin: 8px 0 28px; }
-    .caption b { color: #222; }
-    .demo { margin: 28px 0 8px; }
-    .labels {
+    p { margin: 0 0 14px; }
+    figure { margin: 18px 0 8px; }
+    figure img {
+      width: 100%;
+      height: auto;
+      display: block;
+      background: var(--paper);
+      border-radius: 8px;
+    }
+    figcaption { color: #444; font-size: 16.5px; margin-top: 8px; }
+    figcaption b { color: #222; }
+    .factors {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin: 8px 0 18px;
+    }
+    .factor {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 12px 12px 10px;
+      background: var(--paper);
+    }
+    .factor strong { display: block; color: var(--teal); font-size: 15px; letter-spacing: 0.04em; }
+    .factor em { font-style: normal; color: #666; font-size: 15px; }
+    table { width: 100%; border-collapse: collapse; font-size: 16px; margin: 8px 0 6px; }
+    th, td { padding: 8px 10px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+    th.num, td.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+    th { font-weight: 500; color: #333; }
+    tr.best td { background: var(--best); }
+    .wrap { overflow-x: auto; }
+    .pair { margin: 26px 0 4px; }
+    .halves {
       display: grid;
       grid-template-columns: 1fr 1fr;
+      width: 100%;
+      margin: 0 0 6px;
       font-variant: small-caps;
       letter-spacing: 0.08em;
       font-size: 15px;
-      margin-bottom: 6px;
     }
-    .labels span:first-child { color: #8b5e4b; }
-    .labels span:last-child { color: var(--teal); padding-left: 8px; }
-    .demo img {
-      width: 100%;
-      display: block;
-      border-radius: 10px;
-      background: #f3f1ec;
+    .halves span { text-align: center; }
+    .halves span:first-child { color: var(--brown); }
+    .halves span:last-child { color: var(--teal); }
+    .note { color: #555; }
+    footer { color: #666; font-size: 16px; margin-top: 28px; }
+    @media (max-width: 720px) {
+      .factors { grid-template-columns: 1fr 1fr; }
+      .header, .sheet { padding-left: 16px; padding-right: 16px; }
     }
-    footer { color: #777; font-size: 15px; margin-top: 36px; }
   </style>
 </head>
 <body>
   <div class="header-wrapper">
-    <div class="header-container">
+    <div class="header">
       <h1>MIST</h1>
       <h2>Execution Before Memory</h2>
       <div class="claims">
-        <div class="claim"><span class="dot">1</span><div><b>The score is lost before memory is tested.</b> On 43 internal clips, 41 baseline takes never open the lid.</div></div>
-        <div class="claim"><span class="dot">2</span><div><b>Revise the missed move.</b> Looking at the last frame and rewriting that action reaches 0.763. With the target withheld, the same rewrite is 0.174.</div></div>
-        <div class="claim"><span class="dot">3</span><div><b>Official suites move opposite ways.</b> WRBench completes a missing leave–return. MBench-T mostly keeps the baseline clip.</div></div>
+        <div class="claim"><span class="num">1</span><div><b>The score is lost before memory is tested.</b> Setup is 0.852 and the gap does not leak, but 41 of 43 baseline clips never open.</div></div>
+        <div class="claim"><span class="num">2</span><div><b>Rewriting the missed move helps only when the answer is named.</b> Best of five reaches 0.763. The same rewrite with the target withheld is 0.174.</div></div>
+        <div class="claim"><span class="num">3</span><div><b>The official suites move in opposite directions.</b> WRBench completes a missing leave–return. MBench-T rises mostly by keeping the baseline.</div></div>
       </div>
       <div class="buttons">
         <a href="https://github.com/HKU-MMLab/MIST">Code</a>
         <a href="https://github.com/XiaoxiaoYang2003/ICLR2027-MIST">Paper</a>
         <a href="#comparisons">Comparisons</a>
       </div>
-      <div class="teaser">
-        <img src="media/teaser.png" alt="Overview of MIST, WRBench, MBench-T, and M3-Agent.">
+    </div>
+  </div>
+
+  <div class="sheet">
+    <div class="byline">
+      <div>
+        <a href="https://waynejin0918.github.io/home/">Weiyang Jin</a><sup>1</sup>,
+        <a href="https://yujiwen.github.io/">Jiwen Yu</a><sup>1</sup>,
+        <a href="https://sihanxu.me/">Sihan Xu</a><sup>2</sup>,
+        <a href="https://purshow.github.io/">Yuwei Niu</a><sup>3</sup>,
+        <a href="https://xh-liu.github.io/">Xihui Liu</a><sup>1</sup>
       </div>
+      <div class="aff"><sup>1</sup>University of Hong Kong &nbsp;&nbsp; <sup>2</sup>University of Michigan &nbsp;&nbsp; <sup>3</sup>Peking University</div>
     </div>
-  </div>
 
-  <div class="byline">
-    <div>
-      <a href="https://waynejin0918.github.io/home/">Weiyang Jin</a><sup>1</sup>,
-      <a href="https://yujiwen.github.io/">Jiwen Yu</a><sup>1</sup>,
-      <a href="https://sihanxu.me/">Sihan Xu</a><sup>2</sup>,
-      <a href="https://purshow.github.io/">Yuwei Niu</a><sup>3</sup>,
-      <a href="https://xh-liu.github.io/">Xihui Liu</a><sup>1</sup>
+    <h3 class="sec">Overview</h3>
+    <p>A memory score for a video world model should say three things apart: whether the scene was set, whether the requested action was carried out, and whether the last frame lets a judge read the result. Today's suites compress them into one total, and a low total reads as forgetting. The clips say otherwise. Far more often the model never opens the lid, never sits, or returns to an unchanged object. The score is lost before memory is tested.</p>
+    <p>MIST is an internal probe on frozen Wan2.2-TI2V-5B: three 5-second shots, 43 cases. The model sets the scene while the target stays hidden, and only later is asked to show it. M3-Agent reads the rendered last frame and revises the failed operation. It does not add or train a memory module. The clip that is kept is the one the same judge scores highest, so every best-of-five and official keep-best cell is an oracle coverage ceiling. It asks whether the candidate pack contains a better executable path. It does not show that the backbone stored the target.</p>
+    <figure>
+      <img src="media/teaser.png" alt="Overview of MIST, WRBench, MBench-T, and the M3-Agent loop.">
+      <figcaption><b>Figure 1.</b> Current paper overview. MIST, WRBench, and MBench-T are three different experiments. Do not add a number from one row into another.</figcaption>
+    </figure>
+
+    <h3 class="sec">What one clip is asked</h3>
+    <div class="factors">
+      <div class="factor"><strong>Setup</strong><em>Was the scene set before the reveal?</em></div>
+      <div class="factor"><strong>Leak</strong><em>Did the target show up while it was supposed to stay hidden?</em></div>
+      <div class="factor"><strong>Reveal</strong><em>Was the asked change actually carried out?</em></div>
+      <div class="factor"><strong>Inside</strong><em>Does the last frame match the target state?</em></div>
     </div>
-    <div class="affiliations">
-      <sup>1</sup>University of Hong Kong &nbsp; <sup>2</sup>University of Michigan &nbsp; <sup>3</sup>Peking University
+    <p>On the 43-case baseline these are not one number. Setup is 0.852. Leak is 0/43. Reveal is 0.147, and 41 clips never open, so persistence is not what that baseline measures. Inside match on the baseline is 0.047. A one-clip rewrite leaves setup almost unchanged at 0.851, moves reveal to 0.492, and inside match to 0.442. That 0.492 is MIST reveal. It is not an MBench state component that prints the same digits. Best-of-five inside, 0.721, is a different cell from this one-clip inside of 0.442.</p>
+
+    <h3 class="sec">M3-Agent</h3>
+    <p>The loop has three steps, all at test time, on a frozen generator. A task record lists the actor or object, its binding, the operation, the temporal order, and the evidence the last frame must show. A VLM then reads the rendered last frame, not the generator's hidden state, and names a visible failure: no action, wrong binding, missing departure, missing return, return to the pre-event state, occlusion, or an unstable hold. The rewrite may change only the failed operation and the evidence clause. The actor, the objects, and the order stay.</p>
+    <p>On MIST, Head A keeps the first two 5-second shots and regenerates only the last shot, five times. The original clip stays in the set, so a revision that makes the case worse is not the one that is kept. Ties keep the earlier candidate. On WRBench the camera stays <em>yaw_LR</em> and the caption stays <em>task-context none</em>. On MBench-T the five native caption segments stay, and the original clip has to remain eligible: forcing another leave–return can keep the camera motion and worsen the returned object.</p>
+    <figure>
+      <img src="media/method.png" alt="MIST's three shots and the M3-Agent loop on R0-03.">
+      <figcaption><b>Figure 2.</b> MIST reports setup, leak, reveal, and inside as separate factors. On R0-03 the diagnosis is a wrong binding: the raw take opens onto another object, and the revision names the orange marble that must go in the tin.</figcaption>
+    </figure>
+
+    <h3 class="sec">One kept clip, then five tries</h3>
+    <p>One kept rewrite per case is not best of five. The exclusive labels on those 43 clips move from 41 never-open and 1 correct to 20 never-open, 10 opened onto the wrong contents, and 13 correct. Opening the lid is not the same as showing the target. Ten of the gains are still wrong inside.</p>
+    <figure>
+      <img src="media/story.png" alt="Closed lids fall from 41 to 20. Best of five is 0.763 only when the target is named.">
+      <figcaption><b>Figure 3.</b> (a) One exclusive label per kept clip. (b) Best of five, with and without the target in the prompt. (c) The same lift across operation families. (d) The running best by try. Hatched and dashed marks withhold the target. Keep-best is an oracle.</figcaption>
+    </figure>
+    <div class="wrap">
+      <table>
+        <thead>
+          <tr><th>What we do</th><th class="num">Answer in prompt</th><th class="num">Reveal</th><th class="num">Inside</th><th class="num">Closed</th><th class="num">Ok</th></tr>
+        </thead>
+        <tbody>
+          <tr class="best"><td>Look, then change the move</td><td class="num">yes</td><td class="num">0.763</td><td class="num">0.721</td><td class="num">5</td><td class="num">29</td></tr>
+          <tr><td>Write the target, same move</td><td class="num">yes</td><td class="num">0.684</td><td class="num">0.581</td><td class="num">3</td><td class="num">24</td></tr>
+          <tr><td>Same sentence, new seed only</td><td class="num">yes</td><td class="num">0.635</td><td class="num">0.512</td><td class="num">4</td><td class="num">21</td></tr>
+          <tr><td>Open and hold</td><td class="num">no</td><td class="num">0.268</td><td class="num">0.093</td><td class="num">6</td><td class="num">3</td></tr>
+          <tr><td>Look, then change the move</td><td class="num">no</td><td class="num">0.174</td><td class="num">0.047</td><td class="num">28</td><td class="num">2</td></tr>
+        </tbody>
+      </table>
     </div>
-  </div>
+    <p class="note">Same judge, K = 5, each arm keeps the try with the highest reveal score. Writing the answer into the prompt already reaches 0.684, above resampling the same sentence (0.635) and far above a bare “open and hold” (0.268). Looking at the failure and rewriting the move adds the rest, to 0.763. Both of those high arms may name the target. When the target is withheld, the same look-then-rewrite falls to 0.174, below open-and-hold, and 28 of 43 lids stay closed. The residual 0.763 − 0.684 is therefore not a scorer-free method result.</p>
 
-  <article>
-    <h2>Overview</h2>
-    <p>A memory score should say whether the scene was set, whether the asked change was carried out, and whether the last frame shows the result. Current tests fold these into one number, so a low score is easy to read as forgetting. MIST separates them. M3-Agent reads the failed last frame and revises only that move. The clip that is kept is chosen by the same score that reports the result, so the ceiling is an oracle.</p>
-    <p class="caption"><b>Figure 1.</b> Overview from the current paper draft. Setup, the hidden gap, and the reveal stay separate. Keep-best sees the judge.</p>
+    <h3 class="sec">Official suites</h3>
+    <p>WRBench and MBench-T use Wan2.2-T2V-A14B, 161 frames over 10 seconds, and each suite's own scorer. They are not a scale comparison against TI2V-5B. The same diagnosis does not produce one transferable intervention.</p>
+    <figure>
+      <img src="media/stats.png" alt="WRBench gain is mostly the leave-return path. MBench-T keeps 23 baseline clips.">
+      <figcaption><b>Figure 4.</b> On WRBench the T gain is the leave–return path, not visual quality. On MBench-T, 23 of 30 items keep the baseline clip. A forced leave–return hurts cases that were already correct.</figcaption>
+    </figure>
+    <div class="wrap">
+      <table>
+        <thead>
+          <tr><th>Suite</th><th class="num">Baseline</th><th class="num">Keep-best</th><th class="num">n</th><th>What the gain is</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>WRBench unique T</td><td class="num">0.452</td><td class="num">0.570</td><td class="num">40</td><td>Completing a missing leave–return. Caption stays task-context none.</td></tr>
+          <tr><td>MBench-T unique U</td><td class="num">0.292</td><td class="num">0.446</td><td class="num">30</td><td>Mostly refusal. The baseline clip is kept on 23 of 30 items.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">The published MBench-T 0.446 averages a state oracle and a correctness oracle. The single-clip keep-best on the same 30 items is 0.443. A frozen 8B selector that sees only the last frame and the setup sentence, and does not see the target or the scorer, stays with the baseline: T 0.466, U 0.248. Paired 95% intervals use 4,000 resamples over items, seed 0, and those scorer-free intervals cross zero. Keep-best is the row that separates from the baseline, because it is allowed to see the scorer.</p>
 
-    <h2 id="comparisons">Selected comparisons</h2>
-    <p>Three pairs whose last frame makes the missing move obvious. Left is the raw take. Right is the revised instruction. These are not the full 43 cases.</p>
+    <h3 class="sec" id="comparisons">Selected comparisons</h3>
+    <p>Three pairs whose last frame makes the missing move obvious. Left is the raw take. Right is the revised instruction. They are filtered examples, not the 43-case mean, and not the official T or U.</p>
 
-    <div class="demo">
-      <div class="labels"><span>Raw</span><span>Revised</span></div>
+    <figure class="pair">
+      <div class="halves"><span>Raw</span><span>Revised</span></div>
       <img src="media/r003.gif" alt="R0-03. Raw opens the tin onto the wrong object. Revised puts the orange marble inside.">
-      <p class="caption"><b>Figure 2.</b> R0-03. The raw take opens onto another object. The revision keeps the tin, the purple disk, and the order, and puts the orange marble inside.</p>
-    </div>
-    <div class="demo">
-      <div class="labels"><span>Raw</span><span>Revised</span></div>
-      <img src="media/r010.gif" alt="R0-10. Raw leaves the gray box closed. Revised opens it onto a blue disk and a yellow cube.">
-      <p class="caption"><b>Figure 3.</b> R0-10. The raw lid stays shut. The revision opens onto the blue disk and the yellow cube. The red marble stays outside.</p>
-    </div>
-    <div class="demo">
-      <div class="labels"><span>Raw</span><span>Revised</span></div>
-      <img src="media/s04.gif" alt="S04. Raw opens an empty box. Revised shows a green token inside.">
-      <p class="caption"><b>Figure 4.</b> S04. The raw take lifts the lid onto an empty box. The revision shows the token that belongs inside.</p>
-    </div>
+      <figcaption><b>Figure 5.</b> R0-03, the worked case. The raw take opens onto another object. The revision keeps the tin, the purple disk, and the order, and puts the orange marble inside.</figcaption>
+    </figure>
+    <figure class="pair">
+      <div class="halves"><span>Raw</span><span>Revised</span></div>
+      <img src="media/r010.gif" alt="R0-10. Raw leaves the gray box closed. Revised opens it.">
+      <figcaption><b>Figure 6.</b> R0-10. The raw lid stays shut. The revision opens onto the blue disk and the yellow cube. The red marble stays outside.</figcaption>
+    </figure>
+    <figure class="pair">
+      <div class="halves"><span>Raw</span><span>Revised</span></div>
+      <img src="media/s04.gif" alt="S04. Raw opens an empty box. Revised shows a token inside.">
+      <figcaption><b>Figure 7.</b> S04. The raw take lifts the lid onto an empty box. The revision shows the token that belongs inside.</figcaption>
+    </figure>
 
-    <footer>Selected talk clips. Not a scorer-free result, and not the official WRBench or MBench-T totals. Keep-best is an oracle.</footer>
-  </article>
+    <footer>These GIFs are selected talk clips. They do not replace the tables above. Keep-best remains an oracle, and nothing here is evidence that the generator stored the target state.</footer>
+  </div>
 </body>
 </html>
