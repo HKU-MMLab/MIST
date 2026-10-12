@@ -26,13 +26,16 @@
     }
     a { color: var(--teal); }
     .header-wrapper {
-      background: linear-gradient(-210deg, #0c4f40 0%, #1c7d63 46%, #e7c9a0 82%, #f7f4ee 100%);
+      background:
+        radial-gradient(720px 280px at 8% 0%, rgba(255, 240, 206, 0.28), transparent 62%),
+        radial-gradient(520px 240px at 92% 18%, rgba(255, 214, 160, 0.22), transparent 70%),
+        linear-gradient(165deg, #08352c 0%, #0f6e56 46%, #c9a36a 84%, #f7f4ee 100%);
       color: #fff8ea;
     }
     .header {
       max-width: 980px;
       margin: 0 auto;
-      padding: 52px 28px 36px;
+      padding: 56px 28px 40px;
     }
     .header h1 {
       margin: 0;
@@ -49,13 +52,29 @@
       font-weight: 500;
       color: #ffe7bf;
     }
-    .claims { display: flex; flex-direction: column; gap: 14px; max-width: 760px; }
-    .claim { display: grid; grid-template-columns: 28px 1fr; gap: 12px; align-items: start; }
+    .claims { display: flex; flex-direction: column; gap: 10px; max-width: 760px; }
+    .claim {
+      display: grid;
+      grid-template-columns: 28px 1fr;
+      gap: 12px;
+      align-items: start;
+      width: 100%;
+      text-align: left;
+      color: inherit;
+      font: inherit;
+      cursor: pointer;
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 240, 206, 0.28);
+      background: rgba(8, 32, 28, 0.18);
+      backdrop-filter: blur(6px);
+    }
+    .claim:hover, .claim:focus-visible { background: rgba(8, 32, 28, 0.32); outline: none; }
     .claim b { color: #ffe7bf; }
-    .num {
+    .badge {
       width: 28px;
       height: 28px;
-      margin-top: 2px;
+      margin-top: 1px;
       border-radius: 8px;
       background: #fff0ce;
       color: var(--teal);
@@ -63,18 +82,18 @@
       place-items: center;
       font-size: 15px;
     }
-    .buttons { margin-top: 26px; }
+    .buttons { margin-top: 22px; display: flex; flex-wrap: wrap; gap: 10px; }
     .buttons a {
       display: inline-block;
-      margin: 0 10px 10px 0;
       padding: 10px 18px;
-      border-radius: 20px;
-      background: #fff0ce;
+      border-radius: 999px;
+      background: #fff6df;
       color: #1c2430;
       text-decoration: none;
-      border: 2px solid rgba(176, 141, 87, 0.55);
+      border: 1px solid rgba(255, 246, 223, 0.7);
+      box-shadow: 0 8px 18px rgba(8, 40, 32, 0.12);
     }
-    .buttons a:hover { background: #ffe3a3; }
+    .buttons a:hover { background: #fff; transform: translateY(-1px); }
     .sheet { max-width: 980px; margin: 0 auto; padding: 8px 28px 80px; }
     .byline { text-align: center; padding: 28px 12px 4px; }
     .byline a { color: inherit; text-decoration: none; }
@@ -112,23 +131,69 @@
     .factor em { font-style: normal; color: #666; font-size: 15px; }
     table { width: 100%; border-collapse: collapse; font-size: 16px; margin: 8px 0 6px; }
     th, td { padding: 8px 10px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
-    th.num, td.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+    td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+    td.num { white-space: nowrap; }
+    table.fixed { table-layout: fixed; }
     th { font-weight: 500; color: #333; }
     tr.best td { background: var(--best); }
     .wrap { overflow-x: auto; }
-    .pair { margin: 26px 0 4px; }
-    .halves {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      width: 100%;
-      margin: 0 0 6px;
-      font-variant: small-caps;
-      letter-spacing: 0.08em;
-      font-size: 15px;
+    .cmp {
+      position: relative;
+      aspect-ratio: 720 / 412;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #111;
+      cursor: ew-resize;
+      touch-action: none;
+      --p: 50%;
     }
-    .halves span { text-align: center; }
-    .halves span:first-child { color: var(--brown); }
-    .halves span:last-child { color: var(--teal); }
+    .cmp video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      pointer-events: none;
+    }
+    .cmp .raw { z-index: 1; clip-path: inset(0 calc(100% - var(--p)) 0 0); }
+    .cmp .bar, .cmp .knob { position: absolute; z-index: 2; pointer-events: none; }
+    .cmp .bar { top: 0; bottom: 0; left: var(--p); width: 2px; background: #fff6df; transform: translateX(-1px); }
+    .cmp .knob {
+      top: 50%;
+      left: var(--p);
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: #fff6df;
+      border: 2px solid var(--teal);
+      transform: translate(-50%, -50%);
+    }
+    .cmp .tag {
+      position: absolute;
+      top: 10px;
+      z-index: 2;
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: rgba(28, 36, 48, 0.62);
+      color: #fff6df;
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      pointer-events: none;
+    }
+    .cmp .tag.l { left: 10px; }
+    .cmp .tag.r { right: 10px; }
+    .tools { display: flex; gap: 8px; margin: 8px 0 0; }
+    .tools button {
+      font: inherit;
+      font-size: 14px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: var(--paper);
+      cursor: pointer;
+    }
+    .tools button[aria-pressed="true"] { background: var(--best); border-color: var(--teal); color: var(--teal); }
     .note { color: #555; }
     footer { color: #666; font-size: 16px; margin-top: 28px; }
     @media (max-width: 720px) {
@@ -143,9 +208,9 @@
       <h1>MIST</h1>
       <h2>Execution Before Memory</h2>
       <div class="claims">
-        <div class="claim"><span class="num">1</span><div><b>The score is lost before memory is tested.</b> Setup is 0.852 and the gap does not leak, but 41 of 43 baseline clips never open.</div></div>
-        <div class="claim"><span class="num">2</span><div><b>Rewriting the missed move helps only when the answer is named.</b> Best of five reaches 0.763. The same rewrite with the target withheld is 0.174.</div></div>
-        <div class="claim"><span class="num">3</span><div><b>The official suites move in opposite directions.</b> WRBench completes a missing leave–return. MBench-T rises mostly by keeping the baseline.</div></div>
+        <button class="claim" type="button" data-jump="asked"><span class="badge">1</span><div><b>The score is lost before memory is tested.</b> Setup is 0.852 and the gap does not leak, but 41 of 43 baseline clips never open.</div></button>
+        <button class="claim" type="button" data-jump="tries"><span class="badge">2</span><div><b>Rewriting the missed move helps only when the answer is named.</b> Best of five reaches 0.763. The same rewrite with the target withheld is 0.174.</div></button>
+        <button class="claim" type="button" data-jump="official"><span class="badge">3</span><div><b>The official suites move in opposite directions.</b> WRBench completes a missing leave–return. MBench-T rises mostly by keeping the baseline.</div></button>
       </div>
       <div class="buttons">
         <a href="https://github.com/HKU-MMLab/MIST">Code</a>
@@ -175,7 +240,7 @@
       <figcaption><b>Figure 1.</b> Current paper overview. MIST, WRBench, and MBench-T are three different experiments. Do not add a number from one row into another.</figcaption>
     </figure>
 
-    <h3 class="sec">What one clip is asked</h3>
+    <h3 class="sec" id="asked">What one clip is asked</h3>
     <div class="factors">
       <div class="factor"><strong>Setup</strong><em>Was the scene set before the reveal?</em></div>
       <div class="factor"><strong>Leak</strong><em>Did the target show up while it was supposed to stay hidden?</em></div>
@@ -192,7 +257,7 @@
       <figcaption><b>Figure 2.</b> MIST reports setup, leak, reveal, and inside as separate factors. On R0-03 the diagnosis is a wrong binding: the raw take opens onto another object, and the revision names the orange marble that must go in the tin.</figcaption>
     </figure>
 
-    <h3 class="sec">One kept clip, then five tries</h3>
+    <h3 class="sec" id="tries">One kept clip, then five tries</h3>
     <p>One kept rewrite per case is not best of five. The exclusive labels on those 43 clips move from 41 never-open and 1 correct to 20 never-open, 10 opened onto the wrong contents, and 13 correct. Opening the lid is not the same as showing the target. Ten of the gains are still wrong inside.</p>
     <figure>
       <img src="media/story.png" alt="Closed lids fall from 41 to 20. Best of five is 0.763 only when the target is named.">
@@ -214,14 +279,15 @@
     </div>
     <p class="note">Same judge, K = 5, each arm keeps the try with the highest reveal score. Writing the answer into the prompt already reaches 0.684, above resampling the same sentence (0.635) and far above a bare “open and hold” (0.268). Looking at the failure and rewriting the move adds the rest, to 0.763. Both of those high arms may name the target. When the target is withheld, the same look-then-rewrite falls to 0.174, below open-and-hold, and 28 of 43 lids stay closed. The residual 0.763 − 0.684 is therefore not a scorer-free method result.</p>
 
-    <h3 class="sec">Official suites</h3>
+    <h3 class="sec" id="official">Official suites</h3>
     <p>WRBench and MBench-T use Wan2.2-T2V-A14B, 161 frames over 10 seconds, and each suite's own scorer. They are not a scale comparison against TI2V-5B. The same diagnosis does not produce one transferable intervention.</p>
     <figure>
       <img src="media/stats.png" alt="WRBench gain is mostly the leave-return path. MBench-T keeps 23 baseline clips.">
       <figcaption><b>Figure 4.</b> On WRBench the T gain is the leave–return path, not visual quality. On MBench-T, 23 of 30 items keep the baseline clip. A forced leave–return hurts cases that were already correct.</figcaption>
     </figure>
     <div class="wrap">
-      <table>
+      <table class="fixed">
+        <colgroup><col style="width:22%"><col style="width:12%"><col style="width:14%"><col style="width:8%"><col></colgroup>
         <thead>
           <tr><th>Suite</th><th class="num">Baseline</th><th class="num">Keep-best</th><th class="num">n</th><th>What the gain is</th></tr>
         </thead>
@@ -237,22 +303,95 @@
     <p>Three pairs whose last frame makes the missing move obvious. Left is the raw take. Right is the revised instruction. They are filtered examples, not the 43-case mean, and not the official T or U.</p>
 
     <figure class="pair">
-      <div class="halves"><span>Raw</span><span>Revised</span></div>
-      <img src="media/r003.gif" alt="R0-03. Raw opens the tin onto the wrong object. Revised puts the orange marble inside.">
-      <figcaption><b>Figure 5.</b> R0-03, the worked case. The raw take opens onto another object. The revision keeps the tin, the purple disk, and the order, and puts the orange marble inside.</figcaption>
+      <div class="cmp" tabindex="0" aria-label="R0-03 comparison. Drag to reveal the revision.">
+        <video class="rev" src="media/r003-rev.mp4" muted loop autoplay playsinline></video>
+        <video class="raw" src="media/r003-raw.mp4" muted loop autoplay playsinline></video>
+        <div class="bar"></div>
+        <div class="knob"></div>
+        <span class="tag l">Raw</span>
+        <span class="tag r">Revised</span>
+      </div>
+      <div class="tools">
+        <button type="button" data-set="86">Raw</button>
+        <button type="button" data-set="50" aria-pressed="true">Split</button>
+        <button type="button" data-set="14">Revised</button>
+      </div>
+      <figcaption><b>Figure 5.</b> R0-03, the worked case. Drag the handle. The raw take opens onto another object. The revision keeps the tin, the purple disk, and the order, and puts the orange marble inside.</figcaption>
     </figure>
     <figure class="pair">
-      <div class="halves"><span>Raw</span><span>Revised</span></div>
-      <img src="media/r010.gif" alt="R0-10. Raw leaves the gray box closed. Revised opens it.">
+      <div class="cmp" tabindex="0" aria-label="R0-10 comparison. Drag to reveal the revision.">
+        <video class="rev" src="media/r010-rev.mp4" muted loop autoplay playsinline></video>
+        <video class="raw" src="media/r010-raw.mp4" muted loop autoplay playsinline></video>
+        <div class="bar"></div>
+        <div class="knob"></div>
+        <span class="tag l">Raw</span>
+        <span class="tag r">Revised</span>
+      </div>
+      <div class="tools">
+        <button type="button" data-set="86">Raw</button>
+        <button type="button" data-set="50" aria-pressed="true">Split</button>
+        <button type="button" data-set="14">Revised</button>
+      </div>
       <figcaption><b>Figure 6.</b> R0-10. The raw lid stays shut. The revision opens onto the blue disk and the yellow cube. The red marble stays outside.</figcaption>
     </figure>
     <figure class="pair">
-      <div class="halves"><span>Raw</span><span>Revised</span></div>
-      <img src="media/s04.gif" alt="S04. Raw opens an empty box. Revised shows a token inside.">
+      <div class="cmp" tabindex="0" aria-label="S04 comparison. Drag to reveal the revision.">
+        <video class="rev" src="media/s04-rev.mp4" muted loop autoplay playsinline></video>
+        <video class="raw" src="media/s04-raw.mp4" muted loop autoplay playsinline></video>
+        <div class="bar"></div>
+        <div class="knob"></div>
+        <span class="tag l">Raw</span>
+        <span class="tag r">Revised</span>
+      </div>
+      <div class="tools">
+        <button type="button" data-set="86">Raw</button>
+        <button type="button" data-set="50" aria-pressed="true">Split</button>
+        <button type="button" data-set="14">Revised</button>
+      </div>
       <figcaption><b>Figure 7.</b> S04. The raw take lifts the lid onto an empty box. The revision shows the token that belongs inside.</figcaption>
     </figure>
+    <script>
+      document.querySelectorAll("[data-jump]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          document.getElementById(btn.dataset.jump).scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+      });
+      document.querySelectorAll(".cmp").forEach((el) => {
+        const raw = el.querySelector(".raw");
+        const rev = el.querySelector(".rev");
+        const set = (clientX) => {
+          const box = el.getBoundingClientRect();
+          const p = Math.min(92, Math.max(8, ((clientX - box.left) / box.width) * 100));
+          el.style.setProperty("--p", p + "%");
+        };
+        let drag = false;
+        el.addEventListener("pointerdown", (event) => {
+          drag = true;
+          el.setPointerCapture(event.pointerId);
+          set(event.clientX);
+        });
+        el.addEventListener("pointermove", (event) => { if (drag) set(event.clientX); });
+        el.addEventListener("pointerup", () => { drag = false; });
+        el.addEventListener("keydown", (event) => {
+          const current = parseFloat(getComputedStyle(el).getPropertyValue("--p")) || 50;
+          if (event.key === "ArrowLeft") el.style.setProperty("--p", Math.max(8, current - 6) + "%");
+          if (event.key === "ArrowRight") el.style.setProperty("--p", Math.min(92, current + 6) + "%");
+        });
+        raw.addEventListener("timeupdate", () => {
+          if (Math.abs(raw.currentTime - rev.currentTime) > 0.25) rev.currentTime = raw.currentTime;
+        });
+        el.parentElement.querySelectorAll("[data-set]").forEach((button) => {
+          button.addEventListener("click", () => {
+            el.style.setProperty("--p", button.dataset.set + "%");
+            button.parentElement.querySelectorAll("button").forEach((other) => {
+              other.setAttribute("aria-pressed", other === button ? "true" : "false");
+            });
+          });
+        });
+      });
+    </script>
 
-    <footer>These GIFs are selected talk clips. They do not replace the tables above. Keep-best remains an oracle, and nothing here is evidence that the generator stored the target state.</footer>
+    <footer>Drag a handle, or use Raw / Split / Revised. These are selected talk clips. They do not replace the tables above. Keep-best remains an oracle, and nothing here is evidence that the generator stored the target state.</footer>
   </div>
 </body>
 </html>

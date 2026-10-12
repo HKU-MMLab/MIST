@@ -12,6 +12,7 @@ logs/
 checkpoints/
 runs/
 *.mp4
+!site/media/*.mp4
 *.pt
 *.pth
 *.safetensors
