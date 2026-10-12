@@ -33,9 +33,22 @@
       color: #fff8ea;
     }
     .header {
-      max-width: 980px;
+      max-width: 1160px;
       margin: 0 auto;
-      padding: 56px 28px 40px;
+      padding: 48px 28px 36px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(240px, 0.72fr);
+      gap: 36px;
+      align-items: center;
+    }
+    .still {
+      width: 100%;
+      height: 460px;
+      object-fit: cover;
+      object-position: center 42%;
+      border-radius: 22px;
+      border: 1px solid rgba(255, 246, 223, 0.45);
+      box-shadow: 0 18px 40px rgba(8, 40, 32, 0.22);
     }
     .header h1 {
       margin: 0;
@@ -94,7 +107,15 @@
       box-shadow: 0 8px 18px rgba(8, 40, 32, 0.12);
     }
     .buttons a:hover { background: #fff; transform: translateY(-1px); }
-    .sheet { max-width: 980px; margin: 0 auto; padding: 8px 28px 80px; }
+    .sheet { max-width: 1160px; margin: 0 auto; padding: 8px 28px 80px; }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      align-items: start;
+    }
+    .gallery figcaption { font-size: 15px; }
+    .gallery .tools button { font-size: 13px; padding: 5px 10px; }
     .byline { text-align: center; padding: 28px 12px 4px; }
     .byline a { color: inherit; text-decoration: none; }
     .byline a:hover { color: var(--teal); }
@@ -196,6 +217,10 @@
     .tools button[aria-pressed="true"] { background: var(--best); border-color: var(--teal); color: var(--teal); }
     .note { color: #555; }
     footer { color: #666; font-size: 16px; margin-top: 28px; }
+    @media (max-width: 980px) {
+      .header, .gallery { grid-template-columns: 1fr; }
+      .still { height: 320px; }
+    }
     @media (max-width: 720px) {
       .factors { grid-template-columns: 1fr 1fr; }
       .header, .sheet { padding-left: 16px; padding-right: 16px; }
@@ -205,6 +230,7 @@
 <body>
   <div class="header-wrapper">
     <div class="header">
+      <div>
       <h1>MIST</h1>
       <h2>Execution Before Memory</h2>
       <div class="claims">
@@ -217,6 +243,8 @@
         <a href="https://github.com/XiaoxiaoYang2003/ICLR2027-MIST">Paper</a>
         <a href="#comparisons">Comparisons</a>
       </div>
+      </div>
+      <img class="still" src="media/header-still.jpg" alt="Oil study of an open tin, an orange marble, and a purple disk.">
     </div>
   </div>
 
@@ -300,8 +328,9 @@
     <p class="note">The published MBench-T 0.446 averages a state oracle and a correctness oracle. The single-clip keep-best on the same 30 items is 0.443. A frozen 8B selector that sees only the last frame and the setup sentence, and does not see the target or the scorer, stays with the baseline: T 0.466, U 0.248. Paired 95% intervals use 4,000 resamples over items, seed 0, and those scorer-free intervals cross zero. Keep-best is the row that separates from the baseline, because it is allowed to see the scorer.</p>
 
     <h3 class="sec" id="comparisons">Selected comparisons</h3>
-    <p>Three pairs whose last frame makes the missing move obvious. Left is the raw take. Right is the revised instruction. They are filtered examples, not the 43-case mean, and not the official T or U.</p>
+    <p>Three pairs, side by side. Drag each handle, or use Raw / Split / Revised. They are filtered examples, not the 43-case mean, and not the official T or U.</p>
 
+    <div class="gallery">
     <figure class="pair">
       <div class="cmp" tabindex="0" aria-label="R0-03 comparison. Drag to reveal the revision.">
         <video class="rev" src="media/r003-rev.mp4" muted loop autoplay playsinline></video>
@@ -350,6 +379,7 @@
       </div>
       <figcaption><b>Figure 7.</b> S04. The raw take lifts the lid onto an empty box. The revision shows the token that belongs inside.</figcaption>
     </figure>
+    </div>
     <script>
       document.querySelectorAll("[data-jump]").forEach((btn) => {
         btn.addEventListener("click", () => {
