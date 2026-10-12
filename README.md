@@ -1,6 +1,4 @@
-<p align="center">
-  <img src="docs/images/logo.png" width="520" alt="MIST. Execution before memory. Make the Missing Move.">
-</p>
+![MIST. Execution before memory. Make the Missing Move.](docs/images/logo.png)
 
 <h1 align="center">Execution Before Memory:<br>Diagnosing Memory Failures in Video World Models</h1>
 
@@ -23,9 +21,7 @@
   <a href="docs/protocol.md"><img src="https://img.shields.io/badge/Protocol-cells-B08D57?style=for-the-badge" alt="Protocol"></a>
 </p>
 
-<p align="center">
-  <img src="docs/images/loop.png" width="100%" alt="MIST uses three 5-second shots. M3-Agent reads the last frame, diagnoses the visible failure, rewrites that move, and keeps the oracle score.">
-</p>
+![MIST uses three 5-second shots. M3-Agent reads the last frame, diagnoses the visible failure, rewrites that move, and keeps the oracle score.](docs/images/loop.png)
 
 <p align="center">
   <a href="#overview">Overview</a> &bull;
@@ -33,7 +29,6 @@
   <a href="#m3-agent">M3-Agent</a> &bull;
   <a href="#quick-start">Quick Start</a> &bull;
   <a href="#related">Related</a> &bull;
-  <a href="#repository-layout">Repository Layout</a> &bull;
   <a href="#citation">Citation</a>
 </p>
 
@@ -53,9 +48,7 @@ The numbers in [Key Findings](#key-findings) are the cells reported in the paper
 
 ## Key Findings
 
-<p align="center">
-  <img src="docs/images/findings.png" width="100%" alt="Three reported cells: 41 of 43 baseline clips never open; best-of-five reveal is 0.763 with the answer in the prompt and 0.174 when it is withheld; official WRBench T and MBench-T U move for different reasons, and 23 of 30 MBench-T items keep the baseline.">
-</p>
+![Three reported cells: 41 of 43 baseline clips never open; best-of-five reveal is 0.763 with the answer in the prompt and 0.174 when it is withheld; official WRBench and MBench-T move for different reasons.](docs/images/findings.png)
 
 ### Finding 1: The baseline fails before memory is tested
 
@@ -159,31 +152,19 @@ The 43-case spec, the Wan launcher, and the 122B judge program were in the delet
 
 ## Related
 
-<p align="center">
-  <a href="https://github.com/Wan-Video/Wan2.2"><img src="https://img.shields.io/badge/Wan2.2-code-0F6E56?style=flat-square" alt="Wan2.2 code"></a>
-  <a href="https://arxiv.org/abs/2503.20314"><img src="https://img.shields.io/badge/Wan-arXiv-B31B1B?style=flat-square" alt="Wan paper"></a>
-  <a href="https://github.com/QwenLM/Qwen3"><img src="https://img.shields.io/badge/Qwen-judge_family-5B7C99?style=flat-square" alt="Qwen"></a>
-  <a href="https://jinplu.github.io/WRBench/"><img src="https://img.shields.io/badge/WRBench-project-8B5E4B?style=flat-square" alt="WRBench"></a>
-  <a href="https://github.com/JinPLu/WRBench"><img src="https://img.shields.io/badge/WRBench-code-8B5E4B?style=flat-square" alt="WRBench code"></a>
-  <a href="https://arxiv.org/abs/2606.20545"><img src="https://img.shields.io/badge/WRBench-arXiv-B31B1B?style=flat-square" alt="WRBench paper"></a>
-  <a href="https://peanutup.github.io/MBench-project/"><img src="https://img.shields.io/badge/MBench-project-B08D57?style=flat-square" alt="MBench"></a>
-  <a href="https://github.com/study-overflow/MBench"><img src="https://img.shields.io/badge/MBench-code-B08D57?style=flat-square" alt="MBench code"></a>
-  <a href="https://arxiv.org/abs/2606.00793"><img src="https://img.shields.io/badge/MBench-arXiv-B31B1B?style=flat-square" alt="MBench paper"></a>
-</p>
+| Project | Links |
+| --- | --- |
+| **Wan2.2** | [Code](https://github.com/Wan-Video/Wan2.2) · [Paper](https://arxiv.org/abs/2503.20314). Frozen generator. |
+| **Qwen** | [Code](https://github.com/QwenLM/Qwen3). Judge family. The paper uses Qwen3.5-122B-A10B. |
+| **WRBench** | [Project](https://jinplu.github.io/WRBench/) · [Code](https://github.com/JinPLu/WRBench) · [Paper](https://arxiv.org/abs/2606.20545) |
+| **MBench** | [Project](https://peanutup.github.io/MBench-project/) · [Code](https://github.com/study-overflow/MBench) · [Paper](https://arxiv.org/abs/2606.00793) |
 
-Wan2.2 is the frozen generator. The paper's reveal judge is Qwen3.5-122B-A10B; the badge points at the public Qwen code line, not a claim that this checkpoint is in that repository. WRBench and MBench-T are the official suites. Their scorers stay on those releases.
+<details>
+<summary>Repository layout</summary>
 
-## Repository Layout
+`videomist/` is the control loop, `scripts/` the entry points, `configs/` the protocol, `examples/` the synthetic cards, `docs/` the guide, and `tests/` the checks.
 
-```
-MIST/
-├── videomist/          # Cards, rewrite, oracle keep-best, bootstrap
-├── scripts/            # Command-line entry points
-├── configs/            # Protocol constants
-├── examples/           # Two worked-example cards and synthetic judgments
-├── docs/               # Reproduction guide, protocol, and README figures
-└── tests/              # Unit tests for selection, leakage, and the bootstrap indexes
-```
+</details>
 
 ## Citation
 
