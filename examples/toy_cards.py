@@ -1,0 +1,28 @@
+"""Two worked-example cards already described in the paper draft.
+
+Dry-run scores live in ``videomist.dry`` and are synthetic.
+"""
+
+TOY_SPEC = {
+    "note": "Worked-example text. Not the deleted 43-case spec.",
+    "cases": [
+        {
+            "id": "MIST-GAIN60-R0-03",
+            "setup": "An orange marble, a purple disk, and one opaque metal tin sit on the table.",
+            "operation": "A hand slowly places the orange marble into the tin and closes the lid. The purple disk stays on the table the whole time.",
+            "expected_reveal": "the tin contains the orange marble; the purple disk is still outside",
+            "expected_present": ["orange marble"],
+            "expected_absent": [],
+            "container": "tin",
+        },
+        {
+            "id": "MIST-GAIN60-R0-02",
+            "setup": "A yellow cube, a green marble, and one opaque white lidded cup sit on the table.",
+            "operation": "A hand slowly places the yellow cube into the cup and closes the lid. The green marble stays on the table the whole time.",
+            "expected_reveal": "the cup contains the yellow cube; the green marble is still outside",
+            "expected_present": ["yellow cube"],
+            "expected_absent": [],
+            "container": "cup",
+        },
+    ],
+}
