@@ -1,7 +1,3 @@
-<p align="center">
-  <img width="520" alt="MIST. Execution before memory. Make the Missing Move." src="https://github.com/HKU-MMLab/MIST/releases/download/readme-assets/logo.png">
-</p>
-
 <h1 align="center">Execution Before Memory:<br>Diagnosing Memory Failures in Video World Models</h1>
 
 <p align="center">
@@ -24,7 +20,10 @@
 </p>
 
 <p align="center">
-  <img width="920" alt="MIST uses three 5-second shots. M3-Agent reads the last frame, diagnoses the visible failure, rewrites that move, and keeps the oracle score." src="https://github.com/HKU-MMLab/MIST/releases/download/readme-assets/loop.png">
+  <img width="920" alt="Paper overview. MIST, WRBench, and MBench-T each show a three-frame case. M3-Agent reads the last frame, revises the missed move, and keeps the best score." src="https://github.com/HKU-MMLab/MIST/releases/download/readme-assets/teaser.png">
+</p>
+<p align="center">
+  <em>Overview from the current paper draft. The reveal gate is separate from setup. Keep-best is an oracle.</em>
 </p>
 
 <p align="center">
@@ -53,7 +52,7 @@ The numbers in [Key Findings](#key-findings) are the cells reported in the paper
 ## Key Findings
 
 <p align="center">
-  <img width="920" alt="Three reported cells: 41 of 43 baseline clips never open; best-of-five reveal is 0.763 with the answer in the prompt and 0.174 when it is withheld; official WRBench and MBench-T move for different reasons." src="https://github.com/HKU-MMLab/MIST/releases/download/readme-assets/findings.png">
+  <img width="920" alt="Paper figure. Baseline closed lids fall from 41 to 20. Best-of-five reveal is 0.763 when the target is named and 0.174 when it is withheld." src="https://github.com/HKU-MMLab/MIST/releases/download/readme-assets/story.png">
 </p>
 
 ### Finding 1: The baseline fails before memory is tested
@@ -84,6 +83,10 @@ Same judge, `K = 5`, each arm keeps the try with the highest reveal score. Keep-
 
 ### Finding 3: The same diagnosis has opposite official consequences
 
+<p align="center">
+  <img width="920" alt="Paper figure. Most of the WRBench gain is the leave-return path. On MBench-T, 23 items keep the baseline clip." src="https://github.com/HKU-MMLab/MIST/releases/download/readme-assets/stats.png">
+</p>
+
 Official runs use Wan2.2-T2V-A14B, 161 frames over 10 seconds, and each suite's own scorer. They are not a scale comparison against TI2V-5B.
 
 | Suite | Baseline | Keep-best | n | What the gain is |
@@ -96,6 +99,10 @@ Forcing another leave–return on MBench-T lowers the total. The candidate set h
 A frozen 8B selector that sees only the last frame and the setup sentence, and does not see the target or the scorer, stays with the baseline (`T` `0.466`, `U` `0.248`). Paired 95% intervals use 4,000 resamples over items, seed 0.
 
 ## M3-Agent
+
+<p align="center">
+  <img width="920" alt="Paper figure. Three MIST shots, then the M3-Agent loop on R0-03: diagnose a wrong binding, revise the move, and keep the better clip." src="https://github.com/HKU-MMLab/MIST/releases/download/readme-assets/method.png">
+</p>
 
 The loop has three steps.
 
