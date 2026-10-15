@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Execution Before Memory: Diagnosing Memory Failures in Video World Models</title>
+  <style>
+    :root {
+      --ink: #1c2430;
+      --muted: #4e5854;
+      --teal: #0f6e56;
+      --gold: #b08d57;
+      --brown: #8b5e4b;
+      --line: #e4dcd0;
+      --paper: #f7f4ee;
+      --best: #e8f3ef;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: #fff;
+      font-family: Charter, "Bitstream Charter", "Iowan Old Style", Palatino, Georgia, serif;
+      font-size: 18px;
+      line-height: 1.55;
+    }
+    a { color: var(--teal); }
+    .header-wrapper {
+      background:
+        radial-gradient(720px 280px at 8% 0%, rgba(255, 240, 206, 0.28), transparent 62%),
+        radial-gradient(520px 240px at 92% 18%, rgba(255, 214, 160, 0.22), transparent 70%),
+        linear-gradient(165deg, #08352c 0%, #0f6e56 46%, #c9a36a 84%, #f7f4ee 100%);
+      color: #fff8ea;
+    }
+    .header {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 48px 28px 36px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(240px, 0.72fr);
+      gap: 36px;
+      align-items: center;
+    }
+    .still {
+      width: 100%;
+      height: 460px;
+      object-fit: cover;
+      object-position: center 42%;
+      border-radius: 22px;
+      border: 1px solid rgba(255, 246, 223, 0.45);
+      box-shadow: 0 18px 40px rgba(8, 40, 32, 0.22);
+    }
+    .header h1 {
+      margin: 0 0 22px;
+      font-size: clamp(32px, 3.4vw, 46px);
+      font-weight: 500;
+      font-style: italic;
+      letter-spacing: -0.02em;
+      line-height: 1.12;
+      color: #fff6df;
+    }
+    .claims { display: flex; flex-direction: column; gap: 10px; max-width: 760px; }
+    .claim {
+      display: grid;
+      grid-template-columns: 28px 1fr;
+      gap: 12px;
+      align-items: start;
+      width: 100%;
+      text-align: left;
+      color: inherit;
+      font: inherit;
+      cursor: pointer;
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 240, 206, 0.28);
+      background: rgba(8, 32, 28, 0.18);
+      backdrop-filter: blur(6px);
+    }
+    .claim:hover, .claim:focus-visible { background: rgba(8, 32, 28, 0.32); outline: none; }
+    .claim b { color: #ffe7bf; }
+    .badge {
+      width: 28px;
+      height: 28px;
+      margin-top: 1px;
+      border-radius: 8px;
+      background: #fff0ce;
+      color: var(--teal);
+      display: grid;
+      place-items: center;
+      font-size: 15px;
+    }
+    .buttons { margin-top: 22px; display: flex; flex-wrap: wrap; gap: 10px; }
+    .buttons a {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: #fff6df;
+      color: #1c2430;
+      text-decoration: none;
+      border: 1px solid rgba(255, 246, 223, 0.7);
+      box-shadow: 0 8px 18px rgba(8, 40, 32, 0.12);
+    }
+    .buttons a:hover { background: #fff; transform: translateY(-1px); }
+    .buttons .soon {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: rgba(255, 246, 223, 0.55);
+      color: #5c5346;
+      border: 1px solid rgba(255, 246, 223, 0.7);
+    }
+    .sheet { max-width: 1160px; margin: 0 auto; padding: 8px 28px 80px; }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      align-items: start;
+    }
+    .gallery figcaption { font-size: 15px; }
+    .gallery .tools button { font-size: 13px; padding: 5px 10px; }
+    .byline { text-align: center; padding: 28px 12px 4px; }
+    .byline a { color: inherit; text-decoration: none; }
+    .byline a:hover { color: var(--teal); }
+    .aff { color: #666; font-size: 16px; margin-top: 6px; }
+    h3.sec {
+      font-size: 32px;
+      font-weight: 500;
+      margin: 42px 0 12px;
+    }
+    p { margin: 0 0 14px; }
+    figure { margin: 18px 0 8px; }
+    figure img {
+      width: 100%;
+      height: auto;
+      display: block;
+      background: var(--paper);
+      border-radius: 8px;
+    }
+    figcaption { color: #444; font-size: 16.5px; margin-top: 8px; }
+    figcaption b { color: #222; }
+    .factors {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin: 8px 0 18px;
+    }
+    .factor {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 12px 12px 10px;
+      background: var(--paper);
+    }
+    .factor strong { display: block; color: var(--teal); font-size: 15px; letter-spacing: 0.04em; }
+    .factor em { font-style: normal; color: #666; font-size: 15px; }
+    table { width: 100%; border-collapse: collapse; font-size: 16px; margin: 8px 0 6px; }
+    th, td { padding: 8px 10px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+    td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+    td.num { white-space: nowrap; }
+    table.fixed { table-layout: fixed; }
+    th { font-weight: 500; color: #333; }
+    tr.best td { background: var(--best); }
+    .wrap { overflow-x: auto; }
+    .cmp {
+      position: relative;
+      aspect-ratio: 720 / 412;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #111;
+      cursor: ew-resize;
+      touch-action: none;
+      --p: 50%;
+    }
+    .cmp video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      pointer-events: none;
+    }
+    .cmp .raw { z-index: 1; clip-path: inset(0 calc(100% - var(--p)) 0 0); }
+    .cmp .bar, .cmp .knob { position: absolute; z-index: 2; pointer-events: none; }
+    .cmp .bar { top: 0; bottom: 0; left: var(--p); width: 2px; background: #fff6df; transform: translateX(-1px); }
+    .cmp .knob {
+      top: 50%;
+      left: var(--p);
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: #fff6df;
+      border: 2px solid var(--teal);
+      transform: translate(-50%, -50%);
+    }
+    .cmp .tag {
+      position: absolute;
+      top: 10px;
+      z-index: 2;
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: rgba(28, 36, 48, 0.62);
+      color: #fff6df;
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      pointer-events: none;
+    }
+    .cmp .tag.l { left: 10px; }
+    .cmp .tag.r { right: 10px; }
+    .tools { display: flex; gap: 8px; margin: 8px 0 0; }
+    .tools button {
+      font: inherit;
+      font-size: 14px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: var(--paper);
+      cursor: pointer;
+    }
+    .tools button[aria-pressed="true"] { background: var(--best); border-color: var(--teal); color: var(--teal); }
+    .note { color: #555; }
+    footer { color: #666; font-size: 16px; margin-top: 28px; }
+    pre {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 14px 16px;
+      overflow-x: auto;
+      font-size: 14px;
+      line-height: 1.45;
+    }
+    @media (max-width: 980px) {
+      .header, .gallery { grid-template-columns: 1fr; }
+      .still { height: 320px; }
+    }
+    @media (max-width: 720px) {
+      .factors { grid-template-columns: 1fr 1fr; }
+      .header, .sheet { padding-left: 16px; padding-right: 16px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="header-wrapper">
+    <div class="header">
+      <div>
+      <h1>Execution Before Memory: Diagnosing Memory Failures in Video World Models</h1>
+      <div class="claims">
+        <button class="claim" type="button" data-jump="asked"><span class="badge">1</span><div><b>The score is lost before memory is tested.</b> Setup 0.852, leak 0/43, yet 41/43 never open.</div></button>
+        <button class="claim" type="button" data-jump="tries"><span class="badge">2</span><div><b>Rewriting helps only when the answer is named.</b> Best of five is 0.763. With the target withheld, 0.174.</div></button>
+        <button class="claim" type="button" data-jump="official"><span class="badge">3</span><div><b>Official suites move opposite ways.</b> WRBench completes a leave–return. MBench-T mostly keeps the baseline.</div></button>
+      </div>
+      <div class="buttons">
+        <a href="https://github.com/HKU-MMLab/MIST">Code</a>
+        <span class="soon">arXiv TBD</span>
+      </div>
+      </div>
+      <img class="still" src="media/header-still.jpg" alt="Oil study of an open tin, an orange marble, and a purple disk.">
+    </div>
+  </div>
+
+  <div class="sheet">
+    <div class="byline">
+      <div>
+        <a href="https://waynejin0918.github.io/home/">Weiyang Jin</a><sup>1</sup>,
+        <a href="https://yujiwen.github.io/">Jiwen Yu</a><sup>1</sup>,
+        <a href="https://sihanxu.me/">Sihan Xu</a><sup>2</sup>,
+        <a href="https://purshow.github.io/">Yuwei Niu</a><sup>3</sup>,
+        <a href="https://xh-liu.github.io/">Xihui Liu</a><sup>1</sup>
+      </div>
+      <div class="aff"><sup>1</sup>University of Hong Kong &nbsp;&nbsp; <sup>2</sup>University of Michigan &nbsp;&nbsp; <sup>3</sup>Peking University</div>
+    </div>
+
+    <h3 class="sec">Overview</h3>
+    <p>A memory score should separate three questions: was the scene set, was the change carried out, and does the last frame show it. Suites fold them into one total, so a miss reads as forgetting. MIST hides the target, then asks for it later. M3-Agent rewrites the failed move. The kept clip is an oracle: the same judge both scores and selects. That does not show the model stored the target.</p>
+    <figure>
+      <img src="media/teaser.png" alt="Overview of MIST, WRBench, MBench-T, and the M3-Agent loop.">
+      <figcaption><b>Figure 1.</b> Three experiments. Do not add a number from one into another.</figcaption>
+    </figure>
+
+    <h3 class="sec" id="asked">What one clip is asked</h3>
+    <div class="factors">
+      <div class="factor"><strong>Setup</strong><em>Was the scene set before the reveal?</em></div>
+      <div class="factor"><strong>Leak</strong><em>Did the target show up while it was supposed to stay hidden?</em></div>
+      <div class="factor"><strong>Reveal</strong><em>Was the asked change actually carried out?</em></div>
+      <div class="factor"><strong>Inside</strong><em>Does the last frame match the target state?</em></div>
+    </div>
+    <p>Baseline, 43 cases: setup 0.852, leak 0/43, reveal 0.147, inside 0.047, and 41 clips never open. One kept rewrite: setup 0.851, reveal 0.492, inside 0.442. This 0.492 is MIST reveal, not an MBench state score. Best-of-five inside is 0.721, a different cell.</p>
+
+    <h3 class="sec">M3-Agent</h3>
+    <p>At test time the agent reads the last frame, names the visible failure, and rewrites only that move. Actor, objects, and order stay. On MIST it regenerates the last shot five times and keeps the original eligible. Ties keep the earlier clip.</p>
+    <figure>
+      <img src="media/method.png" alt="MIST's three shots and the M3-Agent loop on R0-03.">
+      <figcaption><b>Figure 2.</b> R0-03 is a wrong binding: the raw take opens onto another object.</figcaption>
+    </figure>
+
+    <h3 class="sec" id="tries">One kept clip, then five tries</h3>
+    <p>One kept clip is not best of five. Labels move from 41 never-open and 1 correct to 20 never-open, 10 wrong inside, and 13 correct.</p>
+    <figure>
+      <img src="media/story.png" alt="Closed lids fall from 41 to 20. Best of five is 0.763 only when the target is named.">
+      <figcaption><b>Figure 3.</b> One label per clip, then best of five. Dashed marks withhold the target. Keep-best is an oracle.</figcaption>
+    </figure>
+    <div class="wrap">
+      <table>
+        <thead>
+          <tr><th>What we do</th><th class="num">Answer in prompt</th><th class="num">Reveal</th><th class="num">Inside</th><th class="num">Closed</th><th class="num">Ok</th></tr>
+        </thead>
+        <tbody>
+          <tr class="best"><td>Look, then change the move</td><td class="num">yes</td><td class="num">0.763</td><td class="num">0.721</td><td class="num">5</td><td class="num">29</td></tr>
+          <tr><td>Write the target, same move</td><td class="num">yes</td><td class="num">0.684</td><td class="num">0.581</td><td class="num">3</td><td class="num">24</td></tr>
+          <tr><td>Same sentence, new seed only</td><td class="num">yes</td><td class="num">0.635</td><td class="num">0.512</td><td class="num">4</td><td class="num">21</td></tr>
+          <tr><td>Open and hold</td><td class="num">no</td><td class="num">0.268</td><td class="num">0.093</td><td class="num">6</td><td class="num">3</td></tr>
+          <tr><td>Look, then change the move</td><td class="num">no</td><td class="num">0.174</td><td class="num">0.047</td><td class="num">28</td><td class="num">2</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">Same judge, K = 5. Naming the target already reaches 0.684. Rewriting the move reaches 0.763, but both arms may name the target. Withheld, the rewrite is 0.174 and 28 lids stay closed.</p>
+
+    <h3 class="sec" id="official">Official suites</h3>
+    <p>These 10-second official suites use their own scorers. They are not the internal three-shot probe, and they do not share one fix.</p>
+    <figure>
+      <img src="media/stats.png" alt="WRBench gain is mostly the leave-return path. MBench-T keeps 23 baseline clips.">
+      <figcaption><b>Figure 4.</b> WRBench gains on leave–return. MBench-T keeps 23 of 30 baseline clips.</figcaption>
+    </figure>
+    <div class="wrap">
+      <table class="fixed">
+        <colgroup><col style="width:22%"><col style="width:12%"><col style="width:14%"><col style="width:8%"><col></colgroup>
+        <thead>
+          <tr><th>Suite</th><th class="num">Baseline</th><th class="num">Keep-best</th><th class="num">n</th><th>What the gain is</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>WRBench unique T</td><td class="num">0.452</td><td class="num">0.570</td><td class="num">40</td><td>Completing a missing leave–return. Caption stays task-context none.</td></tr>
+          <tr><td>MBench-T unique U</td><td class="num">0.292</td><td class="num">0.446</td><td class="num">30</td><td>Mostly refusal. The baseline clip is kept on 23 of 30 items.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">Published U 0.446 averages two oracles; one clip per item is 0.443. A last-frame selector that cannot see the scorer stays near baseline (T 0.466, U 0.248).</p>
+
+    <h3 class="sec" id="comparisons">Selected comparisons</h3>
+    <p>Drag the handle. Filtered examples, not the 43-case mean.</p>
+
+    <div class="gallery">
+    <figure class="pair">
+      <div class="cmp" tabindex="0" aria-label="R0-03 comparison. Drag to reveal the revision.">
+        <video class="rev" src="media/r003-rev.mp4" muted loop autoplay playsinline></video>
+        <video class="raw" src="media/r003-raw.mp4" muted loop autoplay playsinline></video>
+        <div class="bar"></div>
+        <div class="knob"></div>
+        <span class="tag l">Raw</span>
+        <span class="tag r">Revised</span>
+      </div>
+      <div class="tools">
+        <button type="button" data-set="86">Raw</button>
+        <button type="button" data-set="50" aria-pressed="true">Split</button>
+        <button type="button" data-set="14">Revised</button>
+      </div>
+      <figcaption><b>Figure 5.</b> R0-03. Raw opens onto the wrong object. Revised puts the orange marble in the tin.</figcaption>
+    </figure>
+    <figure class="pair">
+      <div class="cmp" tabindex="0" aria-label="R0-10 comparison. Drag to reveal the revision.">
+        <video class="rev" src="media/r010-rev.mp4" muted loop autoplay playsinline></video>
+        <video class="raw" src="media/r010-raw.mp4" muted loop autoplay playsinline></video>
+        <div class="bar"></div>
+        <div class="knob"></div>
+        <span class="tag l">Raw</span>
+        <span class="tag r">Revised</span>
+      </div>
+      <div class="tools">
+        <button type="button" data-set="86">Raw</button>
+        <button type="button" data-set="50" aria-pressed="true">Split</button>
+        <button type="button" data-set="14">Revised</button>
+      </div>
+      <figcaption><b>Figure 6.</b> R0-10. Raw stays shut. Revised opens onto the blue disk and yellow cube.</figcaption>
+    </figure>
+    <figure class="pair">
+      <div class="cmp" tabindex="0" aria-label="S04 comparison. Drag to reveal the revision.">
+        <video class="rev" src="media/s04-rev.mp4" muted loop autoplay playsinline></video>
+        <video class="raw" src="media/s04-raw.mp4" muted loop autoplay playsinline></video>
+        <div class="bar"></div>
+        <div class="knob"></div>
+        <span class="tag l">Raw</span>
+        <span class="tag r">Revised</span>
+      </div>
+      <div class="tools">
+        <button type="button" data-set="86">Raw</button>
+        <button type="button" data-set="50" aria-pressed="true">Split</button>
+        <button type="button" data-set="14">Revised</button>
+      </div>
+      <figcaption><b>Figure 7.</b> S04. Raw is empty. Revised shows the token inside.</figcaption>
+    </figure>
+    </div>
+    <script>
+      document.querySelectorAll("[data-jump]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          document.getElementById(btn.dataset.jump).scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+      });
+      document.querySelectorAll(".cmp").forEach((el) => {
+        const raw = el.querySelector(".raw");
+        const rev = el.querySelector(".rev");
+        const set = (clientX) => {
+          const box = el.getBoundingClientRect();
+          const p = Math.min(92, Math.max(8, ((clientX - box.left) / box.width) * 100));
+          el.style.setProperty("--p", p + "%");
+        };
+        let drag = false;
+        el.addEventListener("pointerdown", (event) => {
+          drag = true;
+          el.setPointerCapture(event.pointerId);
+          set(event.clientX);
+        });
+        el.addEventListener("pointermove", (event) => { if (drag) set(event.clientX); });
+        el.addEventListener("pointerup", () => { drag = false; });
+        el.addEventListener("keydown", (event) => {
+          const current = parseFloat(getComputedStyle(el).getPropertyValue("--p")) || 50;
+          if (event.key === "ArrowLeft") el.style.setProperty("--p", Math.max(8, current - 6) + "%");
+          if (event.key === "ArrowRight") el.style.setProperty("--p", Math.min(92, current + 6) + "%");
+        });
+        raw.addEventListener("timeupdate", () => {
+          if (Math.abs(raw.currentTime - rev.currentTime) > 0.25) rev.currentTime = raw.currentTime;
+        });
+        el.parentElement.querySelectorAll("[data-set]").forEach((button) => {
+          button.addEventListener("click", () => {
+            el.style.setProperty("--p", button.dataset.set + "%");
+            button.parentElement.querySelectorAll("button").forEach((other) => {
+              other.setAttribute("aria-pressed", other === button ? "true" : "false");
+            });
+          });
+        });
+      });
+    </script>
+
+    <h3 class="sec">Conclusion</h3>
+    <p>The scene is set and the gap does not leak, yet 41 of 43 clips never show the change. Revising the failed move opens more lids than naming the target, and the result can still be wrong. Reveal goes from 0.147 to 0.492. Official T goes from 0.452 to 0.570; U goes from 0.292 to 0.446, with 23 of 30 baseline clips kept.</p>
+    <p>The score is lost before persistence is tested. These cells do not show that the model stored the target. Report setup, the change, and the last frame separately.</p>
+
+    <h3 class="sec">BibTeX</h3>
+    <pre>@misc{jin2026execution,
+  title={Execution Before Memory: Diagnosing Memory Failures in Video World Models},
+  author={Jin, Weiyang and Yu, Jiwen and Xu, Sihan and Niu, Yuwei and Liu, Xihui},
+  year={2026}
+}</pre>
+
+    <footer>Selected clips. Keep-best is an oracle.</footer>
+  </div>
+</body>
+</html>
