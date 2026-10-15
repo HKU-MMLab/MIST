@@ -19,6 +19,8 @@ The experiment tree that produced the paper lived at `SusMem2/main-story` on the
 
 ## Check the loop
 
+One-shot env: [`environment.yml`](../environment.yml) (Python 3.12 + cu128 torch, Wan helpers, `vllm`, `sglang`). Details: [runtime.md](runtime.md). The commands below only need the env for the control loop; they do not call Wan or the judge.
+
 ```bash
 conda env create -f environment.yml
 conda activate mist
