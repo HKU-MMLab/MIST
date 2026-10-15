@@ -7,7 +7,7 @@ name = "videomist"
 version = "0.1.0"
 description = "Control loop for MIST and M3-Agent: rewrite, oracle keep-best, and paired bootstrap"
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.12"
 dependencies = []
 
 [tool.setuptools.packages.find]

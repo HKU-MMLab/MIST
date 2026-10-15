@@ -1,6 +1,40 @@
+# One-shot MIST runtime (control loop + Wan helpers + H3/SGLang + vLLM judge).
+# GPU + CUDA 12.8 recommended for generation / judge / H3 serve.
+#
+#   conda env create -f environment.yml
+#   conda activate mist
+#   python -m unittest tests.test_core -v
+#
 name: mist
 channels:
   - conda-forge
 dependencies:
-  - python=3.10
+  - python=3.12
   - pip
+  - ffmpeg
+  - git
+  - pip:
+      - --extra-index-url https://download.pytorch.org/whl/cu128
+      - torch==2.11.0+cu128
+      - torchvision==0.26.0+cu128
+      - torchaudio==2.11.0+cu128
+      - numpy>=1.26,<2.3
+      - pillow>=10.0
+      - opencv-python-headless>=4.8
+      - einops>=0.8.1
+      - ftfy>=6.1
+      - easydict>=1.13
+      - omegaconf>=2.3
+      - imageio[ffmpeg]>=2.34
+      - av>=12.0
+      - decord>=0.6.0
+      - safetensors>=0.4
+      - accelerate>=1.1
+      - transformers>=4.53,<6
+      - diffusers>=0.32
+      - peft>=0.14
+      - sentencepiece>=0.2
+      - protobuf>=5
+      - dashscope>=1.20
+      - vllm>=0.8
+      - sglang>=0.5

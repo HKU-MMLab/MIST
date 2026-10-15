@@ -125,7 +125,7 @@ The worked case in the paper is `R0-03`: an orange marble goes into a tin, a pur
 
 ### 1. Set up the environment
 
-Linux. The control loop has no third-party packages and does not need a GPU.
+Linux. One conda env covers the control loop, Wan helpers, MiniMax-H3 (SGLang), and the vLLM judge. A CUDA 12.8 GPU is required for generation / H3 / judge; the unit tests below only need the env.
 
 ```bash
 git clone https://github.com/HKU-MMLab/MIST.git
@@ -135,7 +135,7 @@ conda activate mist
 python -m unittest tests.test_core -v
 ```
 
-`environment.yml` creates a conda env named `mist` with Python 3.10. Model weights are not part of this environment. See [docs/reproduce.md](docs/reproduce.md).
+[`environment.yml`](environment.yml) creates the env named **`mist`** (Python 3.12, PyTorch cu128, `diffusers` / `transformers`, `vllm`, `sglang`). Model weights are not in the env. Details: [docs/runtime.md](docs/runtime.md), [docs/reproduce.md](docs/reproduce.md). Project page: [hku-mmlab.github.io/MIST](https://hku-mmlab.github.io/MIST/).
 
 | Variable | Purpose |
 | --- | --- |
