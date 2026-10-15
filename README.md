@@ -13,6 +13,7 @@
 </p>
 
 <p align="center">
+  <a href="https://hku-mmlab.github.io/MIST/"><img src="https://img.shields.io/badge/Page-project-1F6F6A?style=for-the-badge" alt="Page"></a>
   <a href="https://github.com/HKU-MMLab/MIST"><img src="https://img.shields.io/badge/Code-MIST-0F6E56?style=for-the-badge" alt="Code"></a>
   <a href="https://github.com/XiaoxiaoYang2003/ICLR2027-MIST"><img src="https://img.shields.io/badge/Paper-private-8B5E4B?style=for-the-badge" alt="Paper"></a>
   <a href="docs/reproduce.md"><img src="https://img.shields.io/badge/Guide-reproduce-5B7C99?style=for-the-badge" alt="Guide"></a>
