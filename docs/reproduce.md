@@ -19,10 +19,10 @@ The experiment tree that produced the paper lived at `SusMem2/main-story` on the
 
 ## Check the loop
 
-Python 3.10 or newer. No GPU, and no extra packages.
-
 ```bash
-python3 -m unittest tests.test_core -v
+conda env create -f environment.yml
+conda activate mist
+python -m unittest tests.test_core -v
 python3 scripts/run_dry.py
 python3 scripts/summarize_reveal.py \
   --judgments examples/synthetic_judgments.jsonl \
