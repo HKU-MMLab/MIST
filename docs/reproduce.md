@@ -20,6 +20,7 @@ The experiment tree that produced the paper lived at `SusMem2/main-story` on the
 ## Check the loop
 
 ```bash
+# Control loop only (no GPU). Full Wan/H3/judge: see docs/runtime.md → mist-all.
 conda env create -f environment.yml
 conda activate mist
 python -m unittest tests.test_core -v

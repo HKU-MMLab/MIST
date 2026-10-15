@@ -1,0 +1,9 @@
+# Declarative stub. Full recreate: bash envs/bootstrap_mist_all.sh
+# Base clone: vllm_qwen @ py3.12 + cu128; H3 SGLang prepended via sitecustomize.
+name: mist-all
+channels:
+  - defaults
+dependencies:
+  - python=3.12
+  - pip
+prefix: /pfs/echo_folder/weiyang/Miniconda3/envs/mist-all

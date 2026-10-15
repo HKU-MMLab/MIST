@@ -135,7 +135,7 @@ conda activate mist
 python -m unittest tests.test_core -v
 ```
 
-`environment.yml` creates a conda env named `mist` with Python 3.10. Model weights are not part of this environment. See [docs/reproduce.md](docs/reproduce.md).
+`environment.yml` creates a conda env named `mist` with Python 3.10 for the control loop only. For Wan + MiniMax-H3 + the VLM judge on one machine, use [`envs/`](envs/) → `mist-all` ([docs/runtime.md](docs/runtime.md)). Model weights are not part of either environment. See [docs/reproduce.md](docs/reproduce.md). Project page: [hku-mmlab.github.io/MIST](https://hku-mmlab.github.io/MIST/).
 
 | Variable | Purpose |
 | --- | --- |
