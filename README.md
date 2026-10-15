@@ -124,15 +124,17 @@ The worked case in the paper is `R0-03`: an orange marble goes into a tin, a pur
 
 ### 1. Set up the environment
 
-Linux, Python 3.10 or newer. The control loop has no third-party dependencies and does not need a GPU.
+Linux. The control loop has no third-party packages and does not need a GPU.
 
 ```bash
 git clone https://github.com/HKU-MMLab/MIST.git
 cd MIST
-python3 -m unittest tests.test_core -v
+conda env create -f environment.yml
+conda activate mist
+python -m unittest tests.test_core -v
 ```
 
-Weights are not downloaded by this repository. Generation and judging, if you attach them later, need Wan2.2-TI2V-5B (MIST), Wan2.2-T2V-A14B (official suites), Qwen3.5-122B-A10B (the reveal judge), and Qwen3-VL-8B-Instruct (the blind last-frame selector). See [docs/reproduce.md](docs/reproduce.md) for the budget the deleted launcher used.
+`environment.yml` creates a conda env named `mist` with Python 3.10. Model weights are not part of this environment. See [docs/reproduce.md](docs/reproduce.md).
 
 | Variable | Purpose |
 | --- | --- |
