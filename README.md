@@ -15,7 +15,7 @@
 <p align="center">
   <a href="https://hku-mmlab.github.io/MIST/"><img src="https://img.shields.io/badge/Page-project-1F6F6A?style=for-the-badge" alt="Page"></a>
   <a href="https://github.com/HKU-MMLab/MIST"><img src="https://img.shields.io/badge/Code-MIST-0F6E56?style=for-the-badge" alt="Code"></a>
-  <a href="https://github.com/XiaoxiaoYang2003/ICLR2027-MIST"><img src="https://img.shields.io/badge/Paper-private-8B5E4B?style=for-the-badge" alt="Paper"></a>
+  <a href="https://arxiv.org/abs/2610.23542"><img src="https://img.shields.io/badge/Paper-arXiv-8B5E4B?style=for-the-badge" alt="Paper"></a>
   <a href="docs/reproduce.md"><img src="https://img.shields.io/badge/Guide-reproduce-5B7C99?style=for-the-badge" alt="Guide"></a>
   <a href="docs/protocol.md"><img src="https://img.shields.io/badge/Protocol-cells-B08D57?style=for-the-badge" alt="Protocol"></a>
 </p>
@@ -170,6 +170,7 @@ The 43-case spec, the Wan launcher, and the 122B judge program were in the delet
 
 | Project | Links |
 | --- | --- |
+| **MIST** | [Page](https://hku-mmlab.github.io/MIST/) · [Code](https://github.com/HKU-MMLab/MIST) · [Paper](https://arxiv.org/abs/2610.23542) |
 | **Wan2.2** | [Code](https://github.com/Wan-Video/Wan2.2) · [Paper](https://arxiv.org/abs/2503.20314). Frozen generator. |
 | **Qwen** | [Code](https://github.com/QwenLM/Qwen3). Judge family. The paper uses Qwen3.5-122B-A10B. |
 | **WRBench** | [Project](https://jinplu.github.io/WRBench/) · [Code](https://github.com/JinPLu/WRBench) · [Paper](https://arxiv.org/abs/2606.20545) |
@@ -188,7 +189,11 @@ The 43-case spec, the Wan launcher, and the 122B judge program were in the delet
 @misc{jin2026execution,
   title={Execution Before Memory: Diagnosing Memory Failures in Video World Models},
   author={Jin, Weiyang and Yu, Jiwen and Xu, Sihan and Niu, Yuwei and Liu, Xihui},
-  year={2026}
+  year={2026},
+  eprint={2610.23542},
+  archivePrefix={arXiv},
+  primaryClass={cs.CV},
+  url={https://arxiv.org/abs/2610.23542}
 }
 ```
 
