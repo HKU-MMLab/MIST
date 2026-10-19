@@ -16,6 +16,7 @@
   <a href="https://hku-mmlab.github.io/MIST/"><img src="https://img.shields.io/badge/Page-project-1F6F6A?style=for-the-badge" alt="Page"></a>
   <a href="https://github.com/HKU-MMLab/MIST"><img src="https://img.shields.io/badge/Code-MIST-0F6E56?style=for-the-badge" alt="Code"></a>
   <a href="https://arxiv.org/abs/2610.23542"><img src="https://img.shields.io/badge/Paper-arXiv-8B5E4B?style=for-the-badge" alt="Paper"></a>
+  <a href="https://huggingface.co/datasets/Wayne-King/MIST"><img src="https://img.shields.io/badge/Eval-Hugging%20Face-f5c16c?style=for-the-badge" alt="Eval"></a>
   <a href="docs/reproduce.md"><img src="https://img.shields.io/badge/Guide-reproduce-5B7C99?style=for-the-badge" alt="Guide"></a>
   <a href="docs/protocol.md"><img src="https://img.shields.io/badge/Protocol-cells-B08D57?style=for-the-badge" alt="Protocol"></a>
 </p>
@@ -26,6 +27,18 @@
 <p align="center">
   <em>Overview from the current paper draft. The reveal gate is separate from setup. Keep-best is an oracle.</em>
 </p>
+
+## News
+
+<div style="max-height:148px;overflow-y:auto;border:1px solid #e4dcd0;border-radius:12px;padding:4px 14px 8px;">
+
+**2026/10/20** — MIST eval is public. The 43 Internal case cards are on [Hugging Face](https://huggingface.co/datasets/Wayne-King/MIST): setup, the hidden operation, the reveal query, and the scoring key.
+
+**2026/10/16** — Paper: [Execution Before Memory](https://arxiv.org/abs/2610.23542).
+
+**2026/10/15** — Project page: [hku-mmlab.github.io/MIST](https://hku-mmlab.github.io/MIST/).
+
+</div>
 
 <p align="center">
   <a href="#overview">Overview</a> &bull;
@@ -164,13 +177,13 @@ The dry run and the synthetic JSONL use hand-written scores. R0-03 keeps a rewri
 
 Export reveal judgments in the JSONL shape above and run `scripts/summarize_reveal.py`. `--with-baseline` is the paper's rule that the original clip stays eligible. Omit it to report the best clip inside one arm.
 
-The 43-case spec, the Wan launcher, and the 122B judge program were in the deleted tree. Their absence is recorded in [docs/reproduce.md](docs/reproduce.md). Do not fill those gaps by inventing prompts or scores and then comparing them with the tables above.
+The 43 Internal case cards are public at [huggingface.co/datasets/Wayne-King/MIST](https://huggingface.co/datasets/Wayne-King/MIST). The Wan launcher and the 122B judge program were in the deleted tree. That absence is recorded in [docs/reproduce.md](docs/reproduce.md). Do not fill those gaps by inventing prompts or scores and then comparing them with the tables above.
 
 ## Related
 
 | Project | Links |
 | --- | --- |
-| **MIST** | [Page](https://hku-mmlab.github.io/MIST/) · [Code](https://github.com/HKU-MMLab/MIST) · [Paper](https://arxiv.org/abs/2610.23542) |
+| **MIST** | [Page](https://hku-mmlab.github.io/MIST/) · [Code](https://github.com/HKU-MMLab/MIST) · [Paper](https://arxiv.org/abs/2610.23542) · [Eval](https://huggingface.co/datasets/Wayne-King/MIST) |
 | **Wan2.2** | [Code](https://github.com/Wan-Video/Wan2.2) · [Paper](https://arxiv.org/abs/2503.20314). Frozen generator. |
 | **Qwen** | [Code](https://github.com/QwenLM/Qwen3). Judge family. The paper uses Qwen3.5-122B-A10B. |
 | **WRBench** | [Project](https://jinplu.github.io/WRBench/) · [Code](https://github.com/JinPLu/WRBench) · [Paper](https://arxiv.org/abs/2606.20545) |
