@@ -101,6 +101,16 @@
       box-shadow: 0 8px 18px rgba(8, 40, 32, 0.12);
     }
     .buttons a:hover { background: #fff; transform: translateY(-1px); }
+    .news-wrap { max-width: 1160px; margin: 0 auto; padding: 22px 28px 0; }
+    .news-label { margin: 0 0 8px; font-family: "Segoe UI", Helvetica, Arial, sans-serif; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--teal); }
+    .news-ticker { overflow: hidden; max-height: 7.6rem; border: 1px solid var(--line); border-radius: 14px; background: var(--paper); -webkit-mask-image: linear-gradient(to bottom, transparent, #000 0.7rem, #000 calc(100% - 0.7rem), transparent); mask-image: linear-gradient(to bottom, transparent, #000 0.7rem, #000 calc(100% - 0.7rem), transparent); }
+    .news-ticker__track { animation: news-roll 22s linear infinite; }
+    .news-ticker:hover .news-ticker__track { animation-play-state: paused; }
+    @keyframes news-roll { from { transform: translateY(0); } to { transform: translateY(-50%); } }
+    .news-feed { list-style: none; margin: 0; padding: 0.4rem 0 0; }
+    .news-item { display: grid; grid-template-columns: 6.2rem 1fr; gap: 0.75rem; padding: 0.45rem 1rem; border-left: 2px solid rgba(15, 110, 86, 0.45); margin: 0 0.8rem 0.55rem; }
+    .news-item time { font-family: "Segoe UI", Helvetica, Arial, sans-serif; font-size: 13px; font-weight: 650; color: var(--gold); }
+    .news-item p { margin: 0; font-size: 16px; }
     .buttons .soon {
       display: inline-block;
       padding: 10px 18px;
@@ -251,9 +261,28 @@
       <div class="buttons">
         <a href="https://github.com/HKU-MMLab/MIST">Code</a>
         <a href="https://arxiv.org/abs/2610.23542">Paper</a>
+        <a href="https://huggingface.co/datasets/Wayne-King/MIST">Eval</a>
       </div>
       </div>
       <img class="still" src="media/header-still.jpg" alt="Oil study of an open tin, an orange marble, and a purple disk.">
+    </div>
+  </div>
+
+  <div class="news-wrap">
+    <p class="news-label">News</p>
+    <div class="news-ticker" aria-label="News">
+      <div class="news-ticker__track">
+        <ul class="news-feed">
+          <li class="news-item"><time datetime="2026-10-20">2026/10/20</time><p><b>MIST eval is public.</b> The 43 Internal case cards are on <a href="https://huggingface.co/datasets/Wayne-King/MIST">Hugging Face</a>: setup, the hidden operation, the reveal query, and the scoring key.</p></li>
+          <li class="news-item"><time datetime="2026-10-16">2026/10/16</time><p><b>Paper.</b> Execution Before Memory is on <a href="https://arxiv.org/abs/2610.23542">arXiv</a>.</p></li>
+          <li class="news-item"><time datetime="2026-10-15">2026/10/15</time><p><b>Project page.</b> Cases, gates, and the test-time rewrite are collected <a href="https://hku-mmlab.github.io/MIST/">here</a>.</p></li>
+        </ul>
+        <ul class="news-feed" aria-hidden="true">
+          <li class="news-item"><time datetime="2026-10-20">2026/10/20</time><p><b>MIST eval is public.</b> The 43 Internal case cards are on <a href="https://huggingface.co/datasets/Wayne-King/MIST">Hugging Face</a>: setup, the hidden operation, the reveal query, and the scoring key.</p></li>
+          <li class="news-item"><time datetime="2026-10-16">2026/10/16</time><p><b>Paper.</b> Execution Before Memory is on <a href="https://arxiv.org/abs/2610.23542">arXiv</a>.</p></li>
+          <li class="news-item"><time datetime="2026-10-15">2026/10/15</time><p><b>Project page.</b> Cases, gates, and the test-time rewrite are collected <a href="https://hku-mmlab.github.io/MIST/">here</a>.</p></li>
+        </ul>
+      </div>
     </div>
   </div>
 
@@ -433,7 +462,7 @@
     <p>The score is lost before persistence is tested. These cells do not show that the model stored the target. Report setup, the change, and the last frame separately.</p>
 
     <h3 class="sec">Related</h3>
-    <p><a href="https://arxiv.org/abs/2610.23542">Paper</a> · <a href="https://github.com/HKU-MMLab/MIST">Code</a>. Wan2.2 <a href="https://github.com/Wan-Video/Wan2.2">code</a> · <a href="https://arxiv.org/abs/2503.20314">paper</a>. Qwen <a href="https://github.com/QwenLM/Qwen3">code</a>. WRBench <a href="https://jinplu.github.io/WRBench/">page</a> · <a href="https://arxiv.org/abs/2606.20545">paper</a>. MBench <a href="https://peanutup.github.io/MBench-project/">page</a> · <a href="https://arxiv.org/abs/2606.00793">paper</a>.</p>
+    <p><a href="https://arxiv.org/abs/2610.23542">Paper</a> · <a href="https://github.com/HKU-MMLab/MIST">Code</a> · <a href="https://huggingface.co/datasets/Wayne-King/MIST">Eval</a>. Wan2.2 <a href="https://github.com/Wan-Video/Wan2.2">code</a> · <a href="https://arxiv.org/abs/2503.20314">paper</a>. Qwen <a href="https://github.com/QwenLM/Qwen3">code</a>. WRBench <a href="https://jinplu.github.io/WRBench/">page</a> · <a href="https://arxiv.org/abs/2606.20545">paper</a>. MBench <a href="https://peanutup.github.io/MBench-project/">page</a> · <a href="https://arxiv.org/abs/2606.00793">paper</a>.</p>
 
     <h3 class="sec">BibTeX</h3>
     <pre>@article{jin2026execution,
