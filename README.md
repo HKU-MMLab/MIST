@@ -14,9 +14,9 @@
 
 <p align="center">
   <a href="https://hku-mmlab.github.io/MIST/"><img src="https://img.shields.io/badge/Page-project-1F6F6A?style=for-the-badge" alt="Page"></a>
+  <a href="https://huggingface.co/datasets/Wayne-King/MIST"><img src="https://img.shields.io/badge/HuggingFace-dataset-FFD21E?style=for-the-badge&logo=huggingface&logoColor=black" alt="HuggingFace"></a>
   <a href="https://github.com/HKU-MMLab/MIST"><img src="https://img.shields.io/badge/Code-MIST-0F6E56?style=for-the-badge" alt="Code"></a>
   <a href="https://arxiv.org/abs/2610.23542"><img src="https://img.shields.io/badge/Paper-arXiv-8B5E4B?style=for-the-badge" alt="Paper"></a>
-  <a href="https://huggingface.co/datasets/Wayne-King/MIST"><img src="https://img.shields.io/badge/Eval-Hugging%20Face-f5c16c?style=for-the-badge" alt="Eval"></a>
   <a href="docs/reproduce.md"><img src="https://img.shields.io/badge/Guide-reproduce-5B7C99?style=for-the-badge" alt="Guide"></a>
   <a href="docs/protocol.md"><img src="https://img.shields.io/badge/Protocol-cells-B08D57?style=for-the-badge" alt="Protocol"></a>
 </p>
