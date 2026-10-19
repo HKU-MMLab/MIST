@@ -186,14 +186,11 @@ The 43-case spec, the Wan launcher, and the 122B judge program were in the delet
 ## Citation
 
 ```bibtex
-@misc{jin2026execution,
+@article{jin2026execution,
   title={Execution Before Memory: Diagnosing Memory Failures in Video World Models},
   author={Jin, Weiyang and Yu, Jiwen and Xu, Sihan and Niu, Yuwei and Liu, Xihui},
-  year={2026},
-  eprint={2610.23542},
-  archivePrefix={arXiv},
-  primaryClass={cs.CV},
-  url={https://arxiv.org/abs/2610.23542}
+  journal={arXiv preprint arXiv:2610.23542},
+  year={2026}
 }
 ```
 
